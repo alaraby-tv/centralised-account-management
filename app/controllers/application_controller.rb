@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:invite, keys: [:first_name, :last_name, :email])
+    devise_parameter_sanitizer.permit(:invite, keys: [:first_name,
+                                                      :last_name,
+                                                      :email,
+                                                      :role
+    ])
   end
 end

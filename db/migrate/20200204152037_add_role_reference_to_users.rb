@@ -5,4 +5,5 @@ class AddRoleReferenceToUsers < ActiveRecord::Migration[5.2]
 
   def down
     remove_reference :users, :role
+  end
 end
