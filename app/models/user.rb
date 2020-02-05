@@ -6,4 +6,5 @@ class User < ApplicationRecord
          :timeoutable, timeout_in: 30.minutes
 
   belongs_to :role
+  has_many :approvals, foreign_key: "approver_id"
 end

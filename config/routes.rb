@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   resources :roles
-  resources :softwares
+  resources :access_accounts
   devise_for :users, skip: [:sessions, :registrations]
   devise_scope :user do
     authenticated :user do
-      root 'softwares#index', as: :authenticated_root
+      root 'access_accounts#index', as: :authenticated_root
     end
 
     root 'devise/sessions#new'

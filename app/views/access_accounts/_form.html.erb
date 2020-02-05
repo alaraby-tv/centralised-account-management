@@ -1,10 +1,10 @@
-<%= form_with(model: software, local: true) do |form| %>
-  <% if software.errors.any? %>
+<%= form_with(model: access_account, local: true) do |form| %>
+  <% if access_account.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(software.errors.count, "error") %> prohibited this software from being saved:</h2>
+      <h2><%= pluralize(access_account.errors.count, "error") %> prohibited this access_account from being saved:</h2>
 
       <ul>
-      <% software.errors.full_messages.each do |message| %>
+      <% access_account.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
