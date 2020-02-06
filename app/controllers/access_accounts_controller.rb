@@ -28,7 +28,7 @@ class AccessAccountsController < ApplicationController
 
     respond_to do |format|
       if @access_account.save
-        format.html { redirect_to @access_account, notice: 'AccessAccount was successfully created.' }
+        format.html { redirect_to @access_account, notice: 'Access Account was successfully created.' }
         format.json { render :show, status: :created, location: @access_account }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class AccessAccountsController < ApplicationController
   def update
     respond_to do |format|
       if @access_account.update(access_account_params)
-        format.html { redirect_to @access_account, notice: 'AccessAccount was successfully updated.' }
+        format.html { redirect_to @access_account, notice: 'Access Account was successfully updated.' }
         format.json { render :show, status: :ok, location: @access_account }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class AccessAccountsController < ApplicationController
   def destroy
     @access_account.destroy
     respond_to do |format|
-      format.html { redirect_to access_accounts_url, notice: 'AccessAccount was successfully destroyed.' }
+      format.html { redirect_to access_accounts_url, notice: 'Access Account was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +69,6 @@ class AccessAccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def access_account_params
-      params.require(:access_account).permit(:name)
+      params.require(:access_account).permit(:name, :approver_id)
     end
 end

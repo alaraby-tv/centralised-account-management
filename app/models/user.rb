@@ -7,4 +7,8 @@ class User < ApplicationRecord
 
   belongs_to :role
   has_many :approvals, foreign_key: "approver_id"
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end
