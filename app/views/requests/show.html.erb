@@ -1,0 +1,35 @@
+<div class="page-header">
+  <%= link_to requests_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_request_path(@request), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show request</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>End user:</dt>
+  <dd><%= @request.end_user %></dd>
+
+  <dt>Requester:</dt>
+  <dd><%= @request.requester %></dd>
+
+  <dt>Access account:</dt>
+  <dd><%= @request.access_account %></dd>
+
+  <dt>Permission:</dt>
+  <dd><%= @request.permission %></dd>
+
+  <dt>State:</dt>
+  <dd><%= @request.state %></dd>
+
+  <dt>Approver name:</dt>
+  <dd><%= @request.approver_name %></dd>
+
+  <dt>Note:</dt>
+  <dd><%= @request.note %></dd>
+
+</dl>

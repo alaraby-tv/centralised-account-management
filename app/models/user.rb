@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   belongs_to :role
   has_many :approvals, foreign_key: "approver_id"
+  has_many :requests, foreign_key: "requester_id"
+  has_many :access_accounts, through: :requests
 
   def name
     "#{first_name} #{last_name}"
