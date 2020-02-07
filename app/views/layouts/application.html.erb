@@ -16,10 +16,11 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag asset_path('favicon.ico') %>
 </head>
 <body>
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
+  <nav class="navbar navbar-inverse navbar-fixed-top col-sm-offset-3 col-md-offset-2" role="navigation">
+    <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
@@ -32,21 +33,46 @@
       <div id="navbar" class="collapse navbar-collapse">
         <% if user_signed_in? %>
           <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <span class="glyphicon glyphicon-log-out"></span>
+                Logout
+              <% end %>
+            </li>
           </ul>
         <% end %>
       </div>
     </div>
   </nav>
-  <div class="container">
-    <% flash.each do |name, msg| %>
-      <%= content_tag :div, class: "alert alert-#{ name == :error ? "danger" : "success" } alert-dismissable", role: "alert" do %>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <%= msg %>
-      <% end %>
-    <% end %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <center><%= image_tag "favicon.ico" %></center>
+        <ul class="nav nav-sidebar">
+          <% AccessAccount.all.each do |access_account| %>
+            <li <% if @access_account == access_account %>class="active"<% end %>>
+              <%= link_to access_account do %>
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <%= access_account.name %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="container">
+          <% flash.each do |name, msg| %>
+            <%= content_tag :div, class: "alert alert-#{ name == :error ? "danger" : "success" } alert-dismissable", role: "alert" do %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <%= msg %>
+            <% end %>
+          <% end %>
 
-    <%= yield %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </div>
+  
 </body>
 </html>

@@ -3,7 +3,54 @@
 @import "bootstrap";
 
 body {
-  padding-top: $navbar-height + 10px;
+  padding-top: $navbar-height;
+}
+
+.background_img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.sidebar img {
+  margin-top: -20px;
+  margin-bottom: 25px;
+  width: 60%;
+}
+
+.container {
+  width: auto;
+}
+
+.sidebar {
+  position: fixed;
+  top: 51px;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: $body-bg;
+  border-right: 1px solid #eee;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 5px 5px 0 rgba(0,0,0,0.2);
+}
+
+.nav-sidebar {
+  margin-right: -21px;
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #428bca;
 }
 
 .page-header {

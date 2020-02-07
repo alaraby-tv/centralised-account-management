@@ -1,6 +1,13 @@
-<h1>Editing Access Account</h1>
+<div class="page-header">
+  <%= link_to access_accounts_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to @access_account, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Show
+  <% end %>
+  <h1>Editing Access Account</h1>
+</div>
 
-<%= render 'form', access_account: @access_account %>
-
-<%= link_to 'Show', @access_account %> |
-<%= link_to 'Back', access_accounts_path %>
+<%= render 'form' %>

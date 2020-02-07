@@ -1,7 +1,37 @@
-<p>
-  <strong>Name:</strong>
-  <%= @access_account.name %>
-</p>
+<div class="page-header">
+  <%= link_to access_accounts_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_access_account_path(@access_account), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1><%= @access_account.name %> <small>current approver: <%= @access_account.approver.name %></small></%></h1>
+</div>
+<div class="table-responsive">
+  <table class="table table-table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>Enduser</th>
+        <th>Access Level</th>
+        <th>Requester</th>
+        <th>Approver</th>
+      </tr>
+    </thead>
 
-<%= link_to 'Edit', edit_access_account_path(@access_account) %> |
-<%= link_to 'Back', access_accounts_path %>
+    <tbody>
+      <%= content_tag_for(:tr, @access_account.requests) do |request| %>
+        <td><%= request.enduser.name %></td>
+        <td><%= request.permission.name %></td>
+        <td><%= request.requester.name %></td>
+        <td><%= request.approver_name %></td>
+        <td>
+          <%= link_to 'Show', request %> |
+          <%= link_to 'Edit', edit_request_path(request) %> |
+          <%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      <% end %>
+    </tbody>
+  </table>
+</div>

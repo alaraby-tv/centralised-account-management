@@ -1,5 +1,9 @@
-<h1>New Access Account</h1>
+<div class="page-header">
+  <%= link_to access_accounts_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <h1>New Access Account</h1>
+</div>
 
-<%= render 'form', access_account: @access_account %>
-
-<%= link_to 'Back', access_accounts_path %>
+<%= render 'form' %>

@@ -1,25 +1,31 @@
-<h1>Access Accounts</h1>
+<div class="page-header">
+  <%= link_to new_access_account_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New Access Account
+  <% end %>
+  <h1>Access Accounts</h1>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @access_accounts.each do |access_account| %>
+<div class="table-responsive">
+  <table class="table table-table-condensed table-hover">
+    <thead>
       <tr>
-        <td><%= access_account.name %></td>
-        <td><%= link_to 'Show', access_account %></td>
-        <td><%= link_to 'Edit', edit_access_account_path(access_account) %></td>
-        <td><%= link_to 'Destroy', access_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Approver</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Access Account', new_access_account_path %>
+    <tbody>
+      <%= content_tag_for(:tr, @access_accounts) do |access_account| %>
+        <td><%= access_account.name %></td>
+        <td><%= access_account.approver.name %></td>
+        <td>
+          <%= link_to 'Show', access_account %> |
+          <%= link_to 'Edit', edit_access_account_path(access_account) %> |
+          <%= link_to 'Destroy', access_account, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
