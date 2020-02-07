@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :permissions
   resources :end_users
   resources :roles
   resources :access_accounts
