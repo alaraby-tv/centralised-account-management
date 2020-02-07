@@ -1,0 +1,31 @@
+<div class="page-header">
+  <%= link_to new_end_user_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New End user
+  <% end %>
+  <h1>Listing end_users</h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= content_tag_for(:tr, @end_users) do |end_user| %>
+            <td><%= end_user.name %></td>
+            <td><%= end_user.email %></td>
+            <td><%= link_to 'Show', end_user %></td>
+        <td><%= link_to 'Edit', edit_end_user_path(end_user) %></td>
+        <td><%= link_to 'Destroy', end_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>

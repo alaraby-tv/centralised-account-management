@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :end_users
   resources :roles
   resources :access_accounts
   devise_for :users, skip: [:sessions, :registrations]
