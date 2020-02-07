@@ -11,17 +11,17 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt>End user:</dt>
-  <dd><%= @request.end_user %></dd>
+  <dt>End User:</dt>
+  <dd><%= @request.end_user.name %></dd>
 
   <dt>Requester:</dt>
-  <dd><%= @request.requester %></dd>
+  <dd><%= @request.requester.name %></dd>
 
   <dt>Access account:</dt>
-  <dd><%= @request.access_account %></dd>
+  <dd><%= @request.access_account.name %></dd>
 
   <dt>Permission:</dt>
-  <dd><%= @request.permission %></dd>
+  <dd><%= @request.permission.name %></dd>
 
   <dt>State:</dt>
   <dd><%= @request.state %></dd>

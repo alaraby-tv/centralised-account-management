@@ -4,6 +4,6 @@ class EndUser < ApplicationRecord
   has_many :access_accounts, through: :requests
 
   validates_presence_of :name, :email
-  validated :email, unique: true
+  validates :email, uniqueness: true
   validates_format_of :email, with: EMAIL_REGEX
 end

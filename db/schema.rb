@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_04_152037) do
+ActiveRecord::Schema.define(version: 2020_02_07_140219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,35 @@ ActiveRecord::Schema.define(version: 2020_02_04_152037) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["approver_id"], name: "index_access_accounts_on_approver_id"
+  end
+
+  create_table "end_users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "permissions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.bigint "end_user_id"
+    t.integer "requester_id"
+    t.bigint "access_account_id"
+    t.bigint "permission_id"
+    t.string "state"
+    t.string "approver_name"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_account_id"], name: "index_requests_on_access_account_id"
+    t.index ["end_user_id"], name: "index_requests_on_end_user_id"
+    t.index ["permission_id"], name: "index_requests_on_permission_id"
+    t.index ["requester_id"], name: "index_requests_on_requester_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -59,5 +88,8 @@ ActiveRecord::Schema.define(version: 2020_02_04_152037) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "requests", "access_accounts"
+  add_foreign_key "requests", "end_users"
+  add_foreign_key "requests", "permissions"
   add_foreign_key "users", "roles"
 end

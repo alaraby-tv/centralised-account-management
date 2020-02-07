@@ -19,13 +19,33 @@
   <%= favicon_link_tag asset_path('favicon.ico') %>
 </head>
 <body>
-  <%= render 'navbar' %>
+  <%= render 'partials/navbar' %>
   <div class="container-fluid">
     <div class="row">
-      <%= render 'sidebar' %>
+      <div class="col-sm-3 col-md-2 sidebar">
+        <center><%= image_tag "favicon.ico" %></center>
+        <% if user_signed_in? %>
+          <ul class="nav nav-sidebar">
+            <li <% if params['controller'] == 'requests' && params['action'] == 'index' %>class="active"<% end %>>
+              <%= link_to requests_path do %>
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                All
+              <% end %>
+            </li>
+            <% AccessAccount.all.each do |access_account| %>
+              <li <% if @access_account == access_account %>class="active"<% end %>>
+                <%= link_to access_account do %>
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                  <%= access_account.name %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div class="container">
-          <%= render 'flash' %>
+          <%= render 'partials/flash' %>
 
           <%= yield %>
         </div>

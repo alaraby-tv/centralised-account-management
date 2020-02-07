@@ -1,0 +1,15 @@
+<div class="col-sm-3 col-md-2 sidebar">
+  <center><%= image_tag "favicon.ico" %></center>
+  <% if user_signed_in? %>
+    <ul class="nav nav-sidebar">
+      <% AccessAccount.all.each do |access_account| %>
+        <li <% if @access_account == access_account %>class="active"<% end %>>
+          <%= link_to access_account do %>
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <%= access_account.name %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

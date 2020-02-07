@@ -13,19 +13,23 @@
   <table class="table table-table-condensed table-hover">
     <thead>
       <tr>
-        <th>Enduser</th>
+        <th>Name</th>
+        <th>Email</th>
         <th>Access Level</th>
         <th>Requester</th>
         <th>Approver</th>
+        <th>Status</th>
       </tr>
     </thead>
 
     <tbody>
       <%= content_tag_for(:tr, @access_account.requests) do |request| %>
-        <td><%= request.enduser.name %></td>
+        <td><%= request.end_user.name %></td>
+        <td><%= request.end_user.email %></td>
         <td><%= request.permission.name %></td>
         <td><%= request.requester.name %></td>
         <td><%= request.approver_name %></td>
+        <td><%= request.state %></td>
         <td>
           <%= link_to 'Show', request %> |
           <%= link_to 'Edit', edit_request_path(request) %> |

@@ -1,5 +1,5 @@
 class AccessAccount < ApplicationRecord
-  belongs_to :approver, class_name: :user
+  belongs_to :approver, class_name: "User"
   has_many :requests
   has_many :end_users, through: :requests
   has_many :permissions, through: :requests
