@@ -26,6 +26,10 @@ body {
   width: auto;
 }
 
+.navbar, .btn {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.08), 0 2px 3px 0 rgba(0,0,0,0.14), 0 2px 5px 0 rgba(0,0,0,0.2);
+}
+
 .sidebar {
   position: fixed;
   top: 51px;
@@ -37,7 +41,7 @@ body {
   overflow-y: auto;
   background-color: $body-bg;
   border-right: 1px solid #eee;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 5px 5px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 3px 0 rgba(0,0,0,0.16), 0 5px 5px 0 rgba(0,0,0,0.2);
 }
 
 .nav-sidebar {
@@ -51,6 +55,17 @@ body {
 .nav-sidebar > .active > a:focus {
     color: #fff;
     background-color: #428bca;
+}
+
+.panel-default, .btn, .form-control {
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+
+select.form-control { 
+  -webkit-appearance: none;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
 }
 
 .page-header {
