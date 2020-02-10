@@ -26,7 +26,7 @@ body {
   width: auto;
 }
 
-.navbar, .btn {
+.navbar, .btn, .sidebar {
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.08), 0 2px 3px 0 rgba(0,0,0,0.14), 0 2px 5px 0 rgba(0,0,0,0.2);
 }
 
@@ -41,7 +41,6 @@ body {
   overflow-y: auto;
   background-color: $body-bg;
   border-right: 1px solid #eee;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 3px 0 rgba(0,0,0,0.16), 0 5px 5px 0 rgba(0,0,0,0.2);
 }
 
 .nav-sidebar {
