@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_07_140219) do
+ActiveRecord::Schema.define(version: 2020_02_11_153000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,13 +36,21 @@ ActiveRecord::Schema.define(version: 2020_02_07_140219) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "request_events", force: :cascade do |t|
+    t.bigint "request_id"
+    t.string "state"
+    t.text "comment"
+    t.string "user_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_id"], name: "index_request_events_on_request_id"
+  end
+
   create_table "requests", force: :cascade do |t|
     t.bigint "end_user_id"
     t.integer "requester_id"
     t.bigint "access_account_id"
     t.bigint "permission_id"
-    t.string "state"
-    t.string "approver_name"
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -88,6 +96,7 @@ ActiveRecord::Schema.define(version: 2020_02_07_140219) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "request_events", "requests"
   add_foreign_key "requests", "access_accounts"
   add_foreign_key "requests", "end_users"
   add_foreign_key "requests", "permissions"

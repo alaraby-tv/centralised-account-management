@@ -5,8 +5,6 @@ class CreateRequests < ActiveRecord::Migration[5.2]
       t.integer :requester_id, foreign_key: true
       t.references :access_account, foreign_key: true
       t.references :permission, foreign_key: true
-      t.string :state
-      t.string :approver_name
       t.text :note
 
       t.timestamps
