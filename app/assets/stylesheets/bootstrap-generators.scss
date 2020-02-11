@@ -17,8 +17,8 @@ body {
 }
 
 .sidebar img {
-  margin-top: -20px;
-  margin-bottom: 25px;
+  margin-top: 30px;
+  margin-bottom: 35px;
   width: 60%;
 }
 
@@ -27,12 +27,12 @@ body {
 }
 
 .navbar, .btn, .sidebar {
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.08), 0 2px 3px 0 rgba(0,0,0,0.14), 0 2px 5px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.1), 0 2px 5px 0 rgba(0,0,0,0.14), 0 2px 5px 0 rgba(0,0,0,0.2);
 }
 
 .sidebar {
   position: fixed;
-  top: 51px;
+  top: 0;
   bottom: 0;
   left: 0;
   display: block;
@@ -81,4 +81,10 @@ input[type="radio"], input[type="checkbox"] {
   width: initial;
   height: initial;
   margin-top: 7px;
+}
+
+@media screen and (max-width: 767px) {
+  .sidebar {
+  display: none;
+}
 }
