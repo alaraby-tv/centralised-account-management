@@ -28,6 +28,7 @@ class RequestsController < ApplicationController
 
     respond_to do |format|
       if @request.save
+        @request.submit current_user
         format.html { redirect_to @request, notice: 'Request was successfully created.' }
         format.json { render :show, status: :created, location: @request }
       else
@@ -37,11 +38,15 @@ class RequestsController < ApplicationController
     end
   end
 
+  def create_event
+  end
+
   # PATCH/PUT /requests/1
   # PATCH/PUT /requests/1.json
   def update
     respond_to do |format|
       if @request.update(request_params)
+        @request.submit current_user
         format.html { redirect_to @request, notice: 'Request was successfully updated.' }
         format.json { render :show, status: :ok, location: @request }
       else

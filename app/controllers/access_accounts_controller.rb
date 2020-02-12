@@ -69,6 +69,6 @@ class AccessAccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def access_account_params
-      params.require(:access_account).permit(:name, :approver_id)
+      params.require(:access_account).permit(:name, :approver_id, :permission_ids => [])
     end
 end
