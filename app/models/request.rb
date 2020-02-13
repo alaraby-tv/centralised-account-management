@@ -1,6 +1,6 @@
 class Request < ApplicationRecord
-  belongs_to :end_user
-  belongs_to :requester
+  belongs_to :end_user, optional: true
+  belongs_to :requester, optional: true
   belongs_to :access_account
   belongs_to :permission
 
