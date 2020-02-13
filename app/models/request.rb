@@ -1,8 +1,8 @@
 class Request < ApplicationRecord
-  belongs_to :end_user, optional: true
-  belongs_to :requester, optional: true
-  belongs_to :access_account
-  belongs_to :permission
+  belongs_to :end_user
+  belongs_to :requester
+  has_many :access_requests
+  has_many :access_accounts, through: :access_requests
 
   STATES = %w[submitted approved rejected cancelled closed]
   delegate :submitted?, :approved?, :rejected?, :closed?, :cancelled?, to: :current_state
