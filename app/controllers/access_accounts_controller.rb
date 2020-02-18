@@ -62,13 +62,13 @@ class AccessAccountsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_access_account
-      @access_account = AccessAccount.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_access_account
+    @access_account = AccessAccount.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def access_account_params
-      params.require(:access_account).permit(:name, :approver_id, :permission_ids => [])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def access_account_params
+    params.require(:access_account).permit(:name, :approver_id, :permission_ids => [])
+  end
 end
