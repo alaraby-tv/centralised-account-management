@@ -1,6 +1,7 @@
 class Request < ApplicationRecord
   belongs_to :end_user
   belongs_to :requester
+  has_many :request_events
   has_many :access_requests
   has_many :access_accounts, through: :access_requests
 
