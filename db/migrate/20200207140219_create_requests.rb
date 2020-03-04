@@ -3,8 +3,6 @@ class CreateRequests < ActiveRecord::Migration[5.2]
     create_table :requests do |t|
       t.references :end_user, foreign_key: true
       t.integer :requester_id, foreign_key: true
-      t.references :access_account, foreign_key: true
-      t.references :permission, foreign_key: true
       t.text :note
 
       t.timestamps

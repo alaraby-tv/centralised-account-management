@@ -15,6 +15,7 @@ class AccessAccountsController < ApplicationController
   # GET /access_accounts/new
   def new
     @access_account = AccessAccount.new
+    @access_account.permissions.build
   end
 
   # GET /access_accounts/1/edit
@@ -69,6 +70,6 @@ class AccessAccountsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def access_account_params
-    params.require(:access_account).permit(:name, :approver_id, :permission_ids => [])
+    params.require(:access_account).permit(:name, :approver_id, permissions_attributes: [:id, :access_account_id, :name, :_destroy])
   end
 end

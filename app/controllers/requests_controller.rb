@@ -14,7 +14,8 @@ class RequestsController < ApplicationController
 
   # GET /requests/new
   def new
-    @request = Request.new
+    @request = current_user.requests.build
+    @request.access_requests.build
   end
 
   # GET /requests/1/edit
@@ -24,11 +25,11 @@ class RequestsController < ApplicationController
   # POST /requests
   # POST /requests.json
   def create
-    @request = Request.new(request_params)
+    @request = current_user.requests.build(request_params)
 
     respond_to do |format|
       if @request.save
-        @request.submit current_user
+        # @request.submit current_user
         format.html { redirect_to @request, notice: 'Request was successfully created.' }
         format.json { render :show, status: :created, location: @request }
       else
@@ -74,6 +75,6 @@ class RequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
-      params.require(:request).permit(:end_user_id, :requester_id, :state, :approver_name, :note, :access_account_ids => [])
+      params.require(:request).permit(:end_user_id, :requester_id, :state, :approver_name, :note, access_requests_attributes: [:id, :_destroy, :request_id, :access_account_id])
     end
 end

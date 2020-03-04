@@ -15,15 +15,6 @@ ActiveRecord::Schema.define(version: 2020_02_28_144346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "access_account_permissions", force: :cascade do |t|
-    t.bigint "access_account_id"
-    t.bigint "permission_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["access_account_id"], name: "index_access_account_permissions_on_access_account_id"
-    t.index ["permission_id"], name: "index_access_account_permissions_on_permission_id"
-  end
-
   create_table "access_accounts", force: :cascade do |t|
     t.string "name"
     t.bigint "approver_id"
@@ -61,9 +52,11 @@ ActiveRecord::Schema.define(version: 2020_02_28_144346) do
   end
 
   create_table "permissions", force: :cascade do |t|
+    t.bigint "access_account_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["access_account_id"], name: "index_permissions_on_access_account_id"
   end
 
   create_table "request_events", force: :cascade do |t|
@@ -79,14 +72,10 @@ ActiveRecord::Schema.define(version: 2020_02_28_144346) do
   create_table "requests", force: :cascade do |t|
     t.bigint "end_user_id"
     t.integer "requester_id"
-    t.bigint "access_account_id"
-    t.bigint "permission_id"
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["access_account_id"], name: "index_requests_on_access_account_id"
     t.index ["end_user_id"], name: "index_requests_on_end_user_id"
-    t.index ["permission_id"], name: "index_requests_on_permission_id"
     t.index ["requester_id"], name: "index_requests_on_requester_id"
   end
 
@@ -126,15 +115,12 @@ ActiveRecord::Schema.define(version: 2020_02_28_144346) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
-  add_foreign_key "access_account_permissions", "access_accounts"
-  add_foreign_key "access_account_permissions", "permissions"
   add_foreign_key "access_request_permissions", "access_requests"
   add_foreign_key "access_request_permissions", "permissions"
   add_foreign_key "access_requests", "access_accounts"
   add_foreign_key "access_requests", "requests"
+  add_foreign_key "permissions", "access_accounts"
   add_foreign_key "request_events", "requests"
-  add_foreign_key "requests", "access_accounts"
   add_foreign_key "requests", "end_users"
-  add_foreign_key "requests", "permissions"
   add_foreign_key "users", "roles"
 end
