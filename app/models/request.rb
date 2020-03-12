@@ -1,4 +1,5 @@
 class Request < ApplicationRecord
+  attr_writer :current_step
   belongs_to :end_user
   belongs_to :requester, class_name: 'User'
   has_many :request_events
@@ -6,5 +7,5 @@ class Request < ApplicationRecord
   has_many :access_accounts, through: :access_requests
   accepts_nested_attributes_for :access_requests,
                                 allow_destroy: true,
-                                reject_if: proc { |att| att['access_account_id'].blank? } 
+                                reject_if: :all_blank 
 end

@@ -9,4 +9,5 @@ class AccessAccount < ApplicationRecord
 
 
   validates :name, presence: true
+  validates :approver, presence: true, if: :approvable
 end

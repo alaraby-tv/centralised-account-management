@@ -24,24 +24,10 @@
       <%= f.text_area :note, class: "form-control" %>
     </div>
   </div>
-  <%= f.label :access_accounts, class: "col-sm-offset-1 control-label" %>
-  <%= link_to_add_association f, :access_requests, class: "btn btn-sm btn-success pull-right", data: { association_insertion_node: '.access_request', association_insertion_method: :append } do %>
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          Account
-        <% end %>
+
   <div class="form-group">
-    <div class="access_request">
-      <%= f.fields_for :access_requests do |builder| %>
-        <%= render 'access_request_fields', f: builder %>
-      <% end %>
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Add Accounts", class: "btn btn-primary" %>
     </div>
-  </div>
-    
-    <hr>
-    <div class="form-group">
-      <div class="col-sm-offset-2">
-        <%= f.submit class: "btn btn-primary" %>
-      </div>
-    </div>
-  
+  </div>  
 <% end %>

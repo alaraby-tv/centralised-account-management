@@ -1,12 +1,8 @@
 class AccessRequest < ApplicationRecord
-  belongs_to :access_account
+  belongs_to :access_account, optional: true
   belongs_to :request
   has_many :access_access_request_events
-  has_many :access_request_permissions
-  has_many :permissions, through: :access_request_permissions
-  accepts_nested_attributes_for :access_request_permissions,
-                                allow_destroy: true,
-                                reject_if: proc { |att| att['permission_id'].blank? }
+  has_and_belongs_to_many :permissions
 
   STATES = %w[submitted approved rejected cancelled closed]
   delegate :submitted?, :approved?, :rejected?, :closed?, :cancelled?, to: :current_state

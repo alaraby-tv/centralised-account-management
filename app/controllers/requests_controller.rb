@@ -29,17 +29,13 @@ class RequestsController < ApplicationController
 
     respond_to do |format|
       if @request.save
-        # @request.submit current_user
-        format.html { redirect_to @request, notice: 'Request was successfully created.' }
+        format.html { redirect_to request_build_index_path(request_id: @request.id) }
         format.json { render :show, status: :created, location: @request }
       else
         format.html { render :new }
         format.json { render json: @request.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def create_event
   end
 
   # PATCH/PUT /requests/1
@@ -75,6 +71,6 @@ class RequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
-      params.require(:request).permit(:end_user_id, :requester_id, :state, :approver_name, :note, access_requests_attributes: [:id, :_destroy, :request_id, :access_account_id])
+      params.require(:request).permit(:end_user_id, :requester_id, :status, :note, access_requests_attributes: [:id, :_destroy, :request_id, :access_account_id])
     end
 end

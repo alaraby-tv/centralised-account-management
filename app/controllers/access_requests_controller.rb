@@ -69,6 +69,6 @@ class AccessRequestsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def access_request_params
-    params.require(:access_request).permit(:name, :access_request_id, :state, :comment, :user_name)
+    params.require(:access_request).permit(:name, :access_request_id, :note, permission_ids: [])
   end
 end
