@@ -15,7 +15,6 @@ class RequestsController < ApplicationController
   # GET /requests/new
   def new
     @request = current_user.requests.build
-    @request.access_requests.build.access_request_permissions.build
   end
 
   # GET /requests/1/edit
