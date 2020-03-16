@@ -43,8 +43,7 @@ class RequestsController < ApplicationController
   def update
     respond_to do |format|
       if @request.update(request_params)
-        @request.submit current_user
-        format.html { redirect_to @request, notice: 'Request was successfully updated.' }
+        format.html { redirect_to request_build_index_path(request_id: @request.id) }
         format.json { render :show, status: :ok, location: @request }
       else
         format.html { render :edit }

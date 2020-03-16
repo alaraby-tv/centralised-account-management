@@ -1,5 +1,4 @@
 class Request < ApplicationRecord
-  attr_writer :current_step
   belongs_to :end_user
   belongs_to :requester, class_name: 'User'
   has_many :request_events

@@ -6,7 +6,10 @@ class Requests::BuildController < ApplicationController
 
   def show
     @request = Request.find(params[:request_id])
-    @request.access_requests.build
+    case step
+    when :accounts
+      @request.access_requests.build
+    end
     render_wizard
   end
 

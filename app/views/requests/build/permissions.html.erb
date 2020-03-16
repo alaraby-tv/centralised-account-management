@@ -22,32 +22,22 @@
   <div class="form-group">
     <%= f.label :access_accounts, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <table class="table table-table-condensed">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody class="permissions">
-          <% @request.access_requests.each do |access_request| %>
-            <tr>
-              <td rowspan="3"><%= access_request.access_account %></td> 
-            </tr>
-            <tr>
-              <%= f.fields_for :access_requests do |permission| %>
-                <%= permission.collection_check_boxes :permission_ids, access_request.access_account.permissions, :id, :name, class: 'form-control' %>
-              <% end %>
-            </tr>
+      <% @request.access_requests.each do |access_request| %>
+      <div class="col-sm-4">
+        <blockquote><%= access_request.access_account.name %></blockquote>
+          <%= f.fields_for :access_requests do |per| %>
+            <%= per.collection_check_boxes :permission_ids, access_request.access_account.permissions, :id, :name, class: 'form-control' %>
           <% end %>
-        </tbody>
-      </table>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Create Request", class: "btn btn-primary" %>
+      <%= link_to "< Back", previous_wizard_path, class: "btn btn-default" %>
+      <%= f.button :submit, class: "btn btn-primary" do %>
+      Save
+      <% end %>
     </div>
   </div>
 <% end %>

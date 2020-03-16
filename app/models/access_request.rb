@@ -1,7 +1,7 @@
 class AccessRequest < ApplicationRecord
   belongs_to :access_account, optional: true
   belongs_to :request
-  has_many :access_access_request_events
+  has_many :access_request_events
   has_and_belongs_to_many :permissions
 
   STATES = %w[submitted approved rejected cancelled closed]
