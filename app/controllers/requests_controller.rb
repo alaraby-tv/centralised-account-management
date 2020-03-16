@@ -15,7 +15,7 @@ class RequestsController < ApplicationController
   # GET /requests/new
   def new
     @request = current_user.requests.build
-    @request.access_requests.build
+    @request.access_requests.build.access_request_permissions.build
   end
 
   # GET /requests/1/edit
@@ -75,6 +75,6 @@ class RequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
-      params.require(:request).permit(:end_user_id, :requester_id, :state, :approver_name, :note, access_requests_attributes: [:id, :_destroy, :request_id, :access_account_id])
+      params.require(:request).permit(:end_user_id, :requester_id, :state, :approver_name, :note, access_requests_attributes: [:id, :_destroy, :request_id, :access_account_id, access_request_permissions_attributes: [:id, :_destroy, :permission_id, :access_request_id]])
     end
 end

@@ -1,5 +1,5 @@
 class Permission < ApplicationRecord
-  belongs_to :access_account
+  belongs_to :access_account, optional: true
   has_many :access_request_permissions
   has_many :access_requests, through: :access_request_permissions
 
