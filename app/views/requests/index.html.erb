@@ -12,11 +12,7 @@
       <tr>
         <th>Name</th>
         <th>Email</th>
-        <th>Access Account</th>
-        <th>Access Level</th>
         <th>Requester</th>
-        <th>Approver</th>
-        <th>State</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -25,11 +21,7 @@
       <%= content_tag_for(:tr, @requests) do |request| %>
             <td><%= request.end_user.name %></td>
             <td><%= request.end_user.email %></td>
-            <td><%= request.access_account.name %></td>
-            <td><%= request.permission.name %></td>
             <td><%= request.requester.name %></td>
-            <td><%= request.approver_name %></td>
-            <td><%= request.state %></td>
             <td>
               <%= link_to 'Show', request %> |
               <%= link_to 'Edit', edit_request_path(request) %> |

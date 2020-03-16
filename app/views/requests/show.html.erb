@@ -17,17 +17,10 @@
   <dt>Requester:</dt>
   <dd><%= @request.requester.name %></dd>
 
-  <dt>Access account:</dt>
-  <dd><%= @request.access_account.name %></dd>
-
-  <dt>Permission:</dt>
-  <dd><%= @request.permission.name %></dd>
-
-  <dt>State:</dt>
-  <dd><%= @request.state %></dd>
-
-  <dt>Approver name:</dt>
-  <dd><%= @request.approver_name %></dd>
+  <dt>Access accounts:</dt>
+    <% @request.access_accounts.each do |access_account| %>
+  <dd><%= access_account.name %></dd>
+  <% end %>
 
   <dt>Note:</dt>
   <dd><%= @request.note %></dd>

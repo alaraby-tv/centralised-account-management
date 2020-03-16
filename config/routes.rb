@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :requests
+  resources :access_requests
+  resources :requests do
+    resources :build, controller: 'requests/build'
+  end
+  resources :request_steps
   resources :permissions
   resources :end_users
   resources :roles

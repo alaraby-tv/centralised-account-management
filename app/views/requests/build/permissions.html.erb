@@ -1,0 +1,43 @@
+<%= form_for(@request, url: wizard_path, method: :put, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @request.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:</h4>
+
+      <ul>
+      <% @request.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :end_user, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <h4><%= @request.end_user.name %></h4>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :access_accounts, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <% @request.access_requests.each do |access_request| %>
+      <div class="col-sm-4">
+        <blockquote><%= access_request.access_account.name %></blockquote>
+          <%= f.fields_for :access_requests do |per| %>
+            <%= per.collection_check_boxes :permission_ids, access_request.access_account.permissions, :id, :name, class: 'form-control' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= link_to "< Back", previous_wizard_path, class: "btn btn-default" %>
+      <%= f.button :submit, class: "btn btn-primary" do %>
+      Save
+      <% end %>
+    </div>
+  </div>
+<% end %>
