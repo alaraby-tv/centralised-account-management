@@ -1,4 +1,5 @@
 class AccessAccount < ApplicationRecord
+  before_save :find_or_create_permission
   belongs_to :approver, class_name: "User"
   has_many :access_requests
   has_many :requests, through: :access_requests
@@ -10,4 +11,12 @@ class AccessAccount < ApplicationRecord
 
   validates :name, presence: true
   validates :approver, presence: true, if: :approvable
+
+  private
+
+  def find_or_create_permission
+    self.permissions = self.permissions.map do |permission|
+      Permission.find_or_create_by(name: permission.name)
+    end
+  end
 end
