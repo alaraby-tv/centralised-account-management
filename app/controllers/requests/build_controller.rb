@@ -2,7 +2,7 @@ class Requests::BuildController < ApplicationController
 
   include Wicked::Wizard
 
-  steps :accounts, :permissions, :confirmation
+  steps :accounts, :permissions
 
   def show
     @request = Request.find(params[:request_id])
