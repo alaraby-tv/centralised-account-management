@@ -30,7 +30,7 @@ class Requests::AccessRequestsController < ApplicationController
 
     respond_to do |format|
       if @access_request.save
-        format.html { redirect_to new_request_access_request(@request), notice: 'Access request was successfully created.' }
+        format.html { redirect_to new_request_access_request_path(@request), notice: 'Access Account was successfully added to your request.' }
         format.json { render :show, status: :created, location: @requests_access_request }
       else
         format.html { render :new }
@@ -75,6 +75,6 @@ class Requests::AccessRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def access_request_params
-      params.fetch(:access_request).permit(:access_account_id, permissions_attributes: [:id, :_destroy, :name])
+      params.fetch(:access_request).permit(:access_account_id, permissions_attributes: [:id, :access_request_id, :_destroy, :name])
     end
 end
