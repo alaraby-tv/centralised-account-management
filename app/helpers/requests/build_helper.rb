@@ -1,2 +1,0 @@
-module Requests::BuildHelper
-end

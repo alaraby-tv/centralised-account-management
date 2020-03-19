@@ -28,7 +28,7 @@ class RequestsController < ApplicationController
 
     respond_to do |format|
       if @request.save
-        format.html { redirect_to request_build_index_path(request_id: @request.id) }
+        format.html { redirect_to new_request_access_request_path(@request) }
         format.json { render :show, status: :created, location: @request }
       else
         format.html { render :new }
@@ -69,6 +69,6 @@ class RequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
-      params.require(:request).permit(:end_user_id, :requester_id, :status, :note, access_requests_attributes: [:id, :_destroy, :request_id, :access_account_id])
+      params.require(:request).permit(:end_user_id, :requester_id, :status, :note, access_requests_attributes: [:id, :_destroy, :request_id, :access_account_id, :permission_id])
     end
 end

@@ -3,6 +3,9 @@ class AccessRequest < ApplicationRecord
   belongs_to :request
   has_many :access_request_events
   has_and_belongs_to_many :permissions
+  accepts_nested_attributes_for :permissions,
+                                allow_destroy: true,
+                                reject_if: :all_blank
 
   STATES = %w[submitted approved rejected cancelled closed]
   delegate :submitted?, :approved?, :rejected?, :closed?, :cancelled?, to: :current_state
@@ -38,5 +41,9 @@ class AccessRequest < ApplicationRecord
   def cancel(user)
     access_request_events.create!(state: "cancelled", user_name: user.name)
     # RequestStatusMailer.cancelled_request_notification(self).deliver
+  end
+
+  def access_account_name
+    access_account.name
   end
 end

@@ -1,0 +1,2 @@
+module Requests::AccessRequestsHelper
+end
