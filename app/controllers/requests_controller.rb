@@ -42,7 +42,7 @@ class RequestsController < ApplicationController
   def update
     respond_to do |format|
       if @request.update(request_params)
-        format.html { redirect_to request_build_index_path(request_id: @request.id) }
+        format.html { redirect_to new_request_access_request_path(@request) }
         format.json { render :show, status: :ok, location: @request }
       else
         format.html { render :edit }
