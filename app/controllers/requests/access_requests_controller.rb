@@ -75,6 +75,6 @@ class Requests::AccessRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def access_request_params
-      params.fetch(:access_request).permit(:access_account_id, permissions_attributes: [:id, :access_request_id, :_destroy, :name])
+      params.fetch(:access_request).permit(:access_account_id, :end_user_id, permissions_attributes: [:id, :access_request_id, :_destroy, :name])
     end
 end

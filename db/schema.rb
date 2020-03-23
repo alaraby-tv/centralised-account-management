@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_05_122650) do
+ActiveRecord::Schema.define(version: 2020_03_23_095710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,9 @@ ActiveRecord::Schema.define(version: 2020_03_05_122650) do
     t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "end_user_id"
     t.index ["access_account_id"], name: "index_access_requests_on_access_account_id"
+    t.index ["end_user_id"], name: "index_access_requests_on_end_user_id"
     t.index ["request_id"], name: "index_access_requests_on_request_id"
   end
 
@@ -121,6 +123,7 @@ ActiveRecord::Schema.define(version: 2020_03_05_122650) do
 
   add_foreign_key "access_request_events", "access_requests"
   add_foreign_key "access_requests", "access_accounts"
+  add_foreign_key "access_requests", "end_users"
   add_foreign_key "access_requests", "requests"
   add_foreign_key "requests", "end_users"
   add_foreign_key "users", "roles"

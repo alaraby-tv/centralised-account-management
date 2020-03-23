@@ -1,6 +1,7 @@
 class AccessRequest < ApplicationRecord
   before_save :find_or_create_permission
-  belongs_to :access_account, optional: true
+  belongs_to :access_account
+  belongs_to :end_user
   belongs_to :request
   has_many :access_request_events
   has_and_belongs_to_many :permissions
