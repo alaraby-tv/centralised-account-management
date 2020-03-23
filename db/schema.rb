@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2020_03_23_095710) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "end_user_id"
+    t.index ["access_account_id", "end_user_id"], name: "index_access_requests_on_access_account_id_and_end_user_id", unique: true
     t.index ["access_account_id"], name: "index_access_requests_on_access_account_id"
     t.index ["end_user_id"], name: "index_access_requests_on_end_user_id"
     t.index ["request_id"], name: "index_access_requests_on_request_id"

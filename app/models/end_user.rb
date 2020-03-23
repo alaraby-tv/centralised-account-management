@@ -2,7 +2,7 @@ class EndUser < ApplicationRecord
   EMAIL_REGEX = /\A([^@\s]+)@((alaraby\.)+(tv))\z/i
   has_many :requests
   has_many :access_requests
-  has_many :access_accounts, through: :access_requests
+  has_many :access_accounts, -> { distinct }, through: :access_requests
 
   validates_presence_of :first_name, :last_name
   validates :email, uniqueness: true

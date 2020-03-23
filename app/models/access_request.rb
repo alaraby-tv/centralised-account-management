@@ -9,6 +9,8 @@ class AccessRequest < ApplicationRecord
                                 allow_destroy: true,
                                 reject_if: proc { |att| att['name'].blank? }
 
+  validates_uniqueness_of :end_user, scope: :access_account, message: "is assigned to this account already"
+
   STATES = %w[submitted approved rejected cancelled closed]
   delegate :submitted?, :approved?, :rejected?, :closed?, :cancelled?, to: :current_state
 
