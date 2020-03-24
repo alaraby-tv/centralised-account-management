@@ -1,7 +1,7 @@
 class AccessAccount < ApplicationRecord
   before_save :find_or_create_permission
   belongs_to :approver, class_name: "User", optional: true
-  has_many :access_requests
+  has_many :access_requests, dependent: :destroy
   has_many :requests, through: :access_requests
   has_many :end_users, -> { distinct }, through: :access_requests
   has_and_belongs_to_many :permissions
@@ -19,9 +19,5 @@ class AccessAccount < ApplicationRecord
     self.permissions = self.permissions.map do |permission|
       Permission.find_or_create_by(name: permission.name)
     end
-  end
-
-  def approvable?
-    self.approvable
   end
 end

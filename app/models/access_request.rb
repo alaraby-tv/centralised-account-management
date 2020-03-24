@@ -3,7 +3,7 @@ class AccessRequest < ApplicationRecord
   belongs_to :access_account
   belongs_to :end_user
   belongs_to :request
-  has_many :access_request_events
+  has_many :access_request_events, dependent: :destroy
   has_and_belongs_to_many :permissions
   accepts_nested_attributes_for :permissions,
                                 allow_destroy: true,
