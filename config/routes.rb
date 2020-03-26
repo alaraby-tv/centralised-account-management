@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:sessions, :registrations]
   devise_scope :user do
     authenticated :user do
-      root 'access_accounts#index', as: :authenticated_root
+      root 'home#index', as: :authenticated_root
     end
 
     root 'devise/sessions#new'
