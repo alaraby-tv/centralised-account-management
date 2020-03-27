@@ -1,4 +1,18 @@
 <div class="page-header">
   <h2>Welcome to Centralised Account Management</h2>
 </div>
-<p>Buttons will appear here</p>
+<p>Select your action :</p>
+<%= link_to new_request_path, class: 'btn btn-success' do %>
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+  New Request
+<% end %>
+
+<%= link_to new_end_user_path, class: 'btn btn-default' do %>
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+  Add Enduser
+<% end %>
+
+<%= link_to access_accounts_path, class: 'btn btn-primary' do %>
+  <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+  All Accounts
+<% end -%>
