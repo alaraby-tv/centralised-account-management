@@ -1,9 +1,9 @@
 <div class="page-header">
-  <%= link_to request_access_requests_path, class: 'btn btn-default' do %>
+  <%= link_to request_access_requests_path, class: 'btn btn-default' do %> <!-- delete or change the path -->
     <span class="glyphicon glyphicon-list-alt"></span>
     Back
   <% end %>
-  <h2>Add Access Account to Request No. <%= @request.id %></h2>
+  <h2>Add Account to Request No. <%= @request.id %></h2>
 </div>
 
 <%= render 'form' %>
