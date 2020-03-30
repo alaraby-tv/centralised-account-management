@@ -69,6 +69,6 @@ class EndUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def end_user_params
-      params.require(:end_user).permit(:name, :email)
+      params.require(:end_user).permit(:first_name, :last_name, :email)
     end
 end
