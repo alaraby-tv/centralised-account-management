@@ -27,7 +27,10 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Next", class: "btn btn-primary" %>
+      <%= f.button class: "btn btn-primary" do %>
+        Next
+        <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+      <% end %>
     </div>
   </div>  
 <% end %>

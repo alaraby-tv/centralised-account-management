@@ -43,7 +43,25 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Add Account", class: "btn btn-primary" %>
+      <%= f.button class: "btn btn-primary" do %>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        Add Account
+      <% end %>
+
+      <% if @request.access_requests.any? %>
+        <%= link_to "#", class: "btn btn-primary" do %>
+          Next
+          <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+        <% end %>
+      <% end %>
+      <h4>Added so far :</h4>
+      <ul class="list-group">
+        <% @request.access_accounts.each do |account| %>
+          <li class="list-group-item">
+            <%= account.name %>
+          </li>  
+        <% end %>
+      </ul>
     </div>
   </div>
 <% end %>
