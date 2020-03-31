@@ -25,13 +25,7 @@
         <center><%= image_tag "favicon.ico" %></center>
         <% if user_signed_in? %>
           <ul class="nav nav-sidebar">
-            <li <% if params['controller'] == 'requests' && params['action'] == 'index' %>class="active"<% end %>>
-              <%= link_to requests_path do %>
-                <span class="glyphicon glyphicon-chevron-right"></span>
-                All
-              <% end %>
-            </li>
-            <% AccessAccount.all.each do |access_account| %>
+            <% AccessAccount.order(:name).each do |access_account| %>
               <li <% if @access_account == access_account %>class="active"<% end %>>
                 <%= link_to access_account do %>
                   <span class="glyphicon glyphicon-chevron-right"></span>
@@ -39,6 +33,12 @@
                 <% end %>
               </li>
             <% end %>
+            <li <% if params['controller'] == 'end_users' %>class="active"<% end %>>
+              <%= link_to end_users_path do %>
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                End Users
+              <% end %>
+            </li>
           </ul>
         <% end %>
       </div>
