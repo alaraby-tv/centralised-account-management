@@ -1,8 +1,0 @@
-<tr class="nested-fields">
-  <td>
-    <%= f.grouped_collection_select :name, AccessAccount.all, :permissions, :name, :name, :name, {}, class: "form-control permission" %>
-  </td>
-  <td>
-    <%= link_to_remove_association 'Remove', f, class: "btn btn-sm btn-danger" %>
-  </td>
-</tr>
