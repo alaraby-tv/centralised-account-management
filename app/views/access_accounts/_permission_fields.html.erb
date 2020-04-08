@@ -1,8 +1,13 @@
 <tr class="nested-fields">
   <td>
-    <%= f.text_field :name, class: "form-control" %>
-  </td>
-  <td>
-    <%= link_to_remove_association 'Remove', f, class: "btn btn-sm btn-danger" %>
+    <div class="input-group">
+      <%= f.text_field :name, class: "form-control" %>
+      <span class="input-group-btn">
+        <%= link_to_remove_association f, class: "btn btn-danger" do %>
+          <span class="glyphicon glyphicon-trash"></span>
+          Remove
+        <% end %>
+      </span>
+    </div>
   </td>
 </tr>
