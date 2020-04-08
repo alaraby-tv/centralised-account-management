@@ -43,6 +43,14 @@ class AccessAccountsController < ApplicationController
   def update
     respond_to do |format|
       if @access_account.update(access_account_params)
+        if access_account_params.dig(:permissions_attributes)
+          access_account_params.dig(:permissions_attributes).each do |val, permission_attributes|
+            if permission_attributes[:_destroy] == '1'
+              permission = Permission.find(permission_attributes[:id])
+              @access_account.permissions.destroy(permission)
+            end
+          end
+        end
         format.html { redirect_to @access_account, notice: 'Access Account was successfully updated.' }
         format.json { render :show, status: :ok, location: @access_account }
       else
