@@ -4,7 +4,7 @@ class CreateRequests < ActiveRecord::Migration[5.2]
       t.references :end_user, foreign_key: true
       t.integer :requester_id, foreign_key: true
       t.text :note
-      t.string :status
+      t.string :status, default: "draft"
 
       t.timestamps
     end
