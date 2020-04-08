@@ -1,28 +1,62 @@
 <div class="page-header">
   <%= link_to requests_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
+    <span class="glyphicon glyphicon-th-list"></span>
     Back
   <% end %>
-  <%= link_to edit_request_path(@request), class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+  <!--   if the request is in draft -->
+  <% unless @request.submitted? %>
+    <%= link_to new_request_access_request_path(@request), class: 'btn btn-success' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Add Account
+    <% end %> 
+    <%= link_to @request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-remove"></span>
+      Discard
+    <% end %>
+    <%= link_to edit_request_path(@request), class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      Edit
+    <% end %>
   <% end %>
-  <h1>Show request</h1>
+  <h2>Request No. <%= @request.id %> <small><%= content_tag :span, class: "label label-#{@request.label_class}" do %><%= @request.status %><% end %></small></h2>
 </div>
 
 <dl class="dl-horizontal">
   <dt>End User:</dt>
-  <dd><%= @request.end_user.name %></dd>
+  <dd><%= @request.end_user_name %></dd>
 
   <dt>Requester:</dt>
-  <dd><%= @request.requester.name %></dd>
-
-  <dt>Access accounts:</dt>
-    <% @request.access_accounts.each do |access_account| %>
-  <dd><%= access_account.name %></dd>
-  <% end %>
+  <dd><%= @request.requester_name %></dd>
 
   <dt>Note:</dt>
   <dd><%= @request.note %></dd>
 
+  <dt>Access requests:</dt>
+  <dd>
+    <table class="table table-condence">
+      <thead>
+        <tr>
+          <th>Enrty</th>
+          <th>Access Account</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @request.access_requests.each do |access_request| %>
+          <tr>
+            <td><%= access_request.id %></td>
+            <td><%= access_request.access_account_name %></td>
+            <td><%= content_tag :span, class: "label label-#{access_request.label_class}" do %><%= access_request.current_state %><% end %></td>
+            <td>
+              <%= link_to request_access_request_path(@request, access_request), class: 'btn btn-xs btn-info pull-right' do %>
+                <span class="glyphicon glyphicon-info-sign"></span>
+                Show
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table> 
+  </dd>
 </dl>
+

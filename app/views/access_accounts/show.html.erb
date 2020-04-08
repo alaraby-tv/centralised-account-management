@@ -6,14 +6,13 @@
     <% end %>
   <% end %>
   <h2><%= @access_account.name %></h2>
-  <p>Approver : <%= @access_account.approver ? @access_account.approver.name : 'N/A' %></p>
+  <p>Approver : <%= @access_account.approver.try(:name) %></p>
 </div>
 <div class="table-responsive">
   <table class="table table-table-condensed table-hover">
     <thead>
       <tr>
         <th>Name</th>
-        <th>Email</th>
         <th>Requester</th>
         <th></th>
       </tr>
@@ -22,7 +21,6 @@
     <tbody>
       <%= content_tag_for(:tr, @access_account.requests) do |request| %>
         <td><%= request.end_user.name %></td>
-        <td><%= request.end_user.email %></td>
         <td><%= request.requester.name %></td>
         <td>
           <%= link_to 'Show', request %> |

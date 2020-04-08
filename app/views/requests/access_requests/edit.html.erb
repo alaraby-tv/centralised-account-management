@@ -1,13 +1,58 @@
 <div class="page-header">
-  <%= link_to request_access_requests_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
+  <%= link_to @request, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-th-list"></span>
     Back
   <% end %>
-  <%= link_to @requests_access_request, class: 'btn btn-primary' do %>
+  <%= link_to request_access_request_path, class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-info-sign"></span>
     Show
   <% end %>
-  <h1>Editing requests_access_request</h1>
+  <h2>Editing Access Request</h2>
 </div>
 
-<%= render 'form' %>
+<%= form_for([@request, @access_request], html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @access_request.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@access_request.errors.count, "error") %> prohibited this request from being saved:</h4>
+
+      <ul>
+      <% @access_request.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :end_user, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select :end_user_id, options_for_select([[@request.end_user_name, @request.end_user_id]]), {}, { class: "form-control" } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :access_account_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select :access_account_id, options_for_select([[@access_request.access_account_name, @access_request.access_account_id]]), { prompt: true }, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :permissions, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_check_boxes :permission_ids, @access_request.access_account.permissions, :id, :name, class: "form-control" do |b| %>
+          <%= b.label(:"data-value" => b.value) { b.check_box + " " + b.text } %><br>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.button class: "btn btn-primary" do %>
+        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+        Save
+      <% end %>
+    </div>
+  </div>
+<% end %>
