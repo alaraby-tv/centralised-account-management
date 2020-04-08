@@ -1,18 +1,18 @@
 class AccessRequest < ApplicationRecord
-  before_save :find_or_create_permission
-  belongs_to :access_account
-  belongs_to :end_user
-  belongs_to :request
-  has_many :access_request_events, dependent: :destroy
-  has_and_belongs_to_many :permissions
-  accepts_nested_attributes_for :permissions,
-                                allow_destroy: true,
-                                reject_if: proc { |att| att['name'].blank? }
+  belongs_to :access_account, inverse_of: :access_requests
+  belongs_to :end_user, inverse_of: :access_requests
+  belongs_to :request, inverse_of: :access_requests
+  has_many :access_request_events, dependent: :destroy, inverse_of: :access_request
+  has_many :access_request_permissions, dependent: :destroy, inverse_of: :access_request
+  has_many :permissions, -> { distinct }, through: :access_request_permissions
 
   validates_uniqueness_of :end_user, scope: :access_account, message: "is assigned to this account already"
+  validates :permissions, presence: true, if: :access_account_with_permissions?
 
-  STATES = %w[submitted approved rejected cancelled closed]
-  delegate :submitted?, :approved?, :rejected?, :closed?, :cancelled?, to: :current_state
+  delegate :name, to: :access_account, prefix: true
+
+  STATES = %w[draft submitted approved rejected completed]
+  delegate :submitted?, :approved?, :rejected?, :completed?, to: :current_state
 
   def self.submitted_requests
     joins(:access_request_events).merge RequestEvent.with_last_state("submitted")
@@ -20,6 +20,10 @@ class AccessRequest < ApplicationRecord
 
   def current_state
     (access_request_events.last.try(:state) || STATES.first).inquiry
+  end
+
+  def draft(user)
+    access_request_events.create!(user_name: user.name)
   end
 
   def submit(user)
@@ -37,25 +41,27 @@ class AccessRequest < ApplicationRecord
     # RequestStatusMailer.rejected_request_notification(self).deliver
   end
 
-  def close(user)
-    access_request_events.create!(state: "closed", user_name: user.name) if current_state.approved?
-    # RequestStatusMailer.closed_request_notification(self).deliver
-  end
-
-  def cancel(user)
-    access_request_events.create!(state: "cancelled", user_name: user.name)
+  def complete(user)
+    access_request_events.create!(state: "completed", user_name: user.name) if current_state.approved?
     # RequestStatusMailer.cancelled_request_notification(self).deliver
   end
 
-  def access_account_name
-    access_account.name
+  def label_class
+    case current_state
+    when 'draft'
+      'info'
+    when 'submitted'
+      'primary'
+    when 'approved'
+      'warning'
+    when 'rejected'
+      'danger'
+    when 'completed'
+      'success'
+    end
   end
 
-  private
-
-  def find_or_create_permission
-    self.permissions = self.permissions.map do |permission|
-      Permission.find_or_create_by(name: permission.name)
-    end
+  def access_account_with_permissions?
+    access_account.permissions.any?
   end
 end
