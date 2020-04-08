@@ -18,7 +18,9 @@
       Edit
     <% end %>
   <% end %>
-  <h2>Request No. <%= @request.id %> <small><%= content_tag :span, class: "label label-#{@request.label_class}" do %><%= @request.status %><% end %></small></h2>
+  <h2>
+    Request No. <%= @request.id %> <small><%= content_tag :span, class: "label label-#{@request.label_class}" do %><%= @request.status %><% end %></small>
+  </h2>
 </div>
 
 <dl class="dl-horizontal">
