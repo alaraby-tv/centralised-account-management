@@ -4,7 +4,7 @@ class AccessAccount < ApplicationRecord
   has_many :access_requests, dependent: :destroy, inverse_of: :access_account
   has_many :requests, through: :access_requests
   has_many :end_users, -> { distinct }, through: :access_requests
-  has_many :access_account_permissions, inverse_of: :access_account
+  has_many :access_account_permissions, inverse_of: :access_account, dependent: :destroy
   has_many :permissions, -> { distinct }, through: :access_account_permissions
   accepts_nested_attributes_for :permissions,
                                 allow_destroy: true,
