@@ -30,6 +30,7 @@ class Requests::AccessRequestsController < ApplicationController
 
     respond_to do |format|
       if @access_request.save
+        @access_request.draft current_user
         format.html { redirect_to new_request_access_request_path(@request), notice: 'Access Account was successfully added to your request.' }
         format.json { render :show, status: :created, location: @requests_access_request }
       else
@@ -43,12 +44,12 @@ class Requests::AccessRequestsController < ApplicationController
   # PATCH/PUT /requests/access_requests/1.json
   def update
     respond_to do |format|
-      if @access_request.update(requests_access_request_params)
-        format.html { redirect_to @access_request, notice: 'Access request was successfully updated.' }
-        format.json { render :show, status: :ok, location: @requests_access_request }
+      if @access_request.update(access_request_params)
+        format.html { redirect_to @request, notice: 'Access request was successfully updated.' }
+        format.json { render :show, status: :ok, location: @access_request }
       else
         format.html { render :edit }
-        format.json { render json: @request_access_request.errors, status: :unprocessable_entity }
+        format.json { render json: @access_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,7 +59,7 @@ class Requests::AccessRequestsController < ApplicationController
   def destroy
     @access_request.destroy
     respond_to do |format|
-      format.html { redirect_to request_access_requests_url, notice: 'Access request was successfully destroyed.' }
+      format.html { redirect_to @request, notice: 'Access request was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -75,6 +76,6 @@ class Requests::AccessRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def access_request_params
-      params.fetch(:access_request).permit(:access_account_id, :end_user_id, permissions_attributes: [:id, :access_request_id, :_destroy, :name])
+      params.fetch(:access_request).permit(:access_account_id, :end_user_id, permission_ids: [])
     end
 end
