@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_23_095710) do
+ActiveRecord::Schema.define(version: 2020_03_05_122650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "access_account_permissions", force: :cascade do |t|
+    t.bigint "access_account_id"
+    t.bigint "permission_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_account_id"], name: "index_access_account_permissions_on_access_account_id"
+    t.index ["permission_id"], name: "index_access_account_permissions_on_permission_id"
+  end
 
   create_table "access_accounts", force: :cascade do |t|
     t.string "name"
@@ -24,14 +33,9 @@ ActiveRecord::Schema.define(version: 2020_03_23_095710) do
     t.index ["approver_id"], name: "index_access_accounts_on_approver_id"
   end
 
-  create_table "access_accounts_permissions", id: false, force: :cascade do |t|
-    t.bigint "access_account_id", null: false
-    t.bigint "permission_id", null: false
-  end
-
   create_table "access_request_events", force: :cascade do |t|
     t.bigint "access_request_id"
-    t.string "state"
+    t.string "state", default: "draft"
     t.string "comment"
     t.string "user_name"
     t.datetime "created_at", null: false
@@ -39,24 +43,25 @@ ActiveRecord::Schema.define(version: 2020_03_23_095710) do
     t.index ["access_request_id"], name: "index_access_request_events_on_access_request_id"
   end
 
+  create_table "access_request_permissions", force: :cascade do |t|
+    t.bigint "access_request_id"
+    t.bigint "permission_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_request_id"], name: "index_access_request_permissions_on_access_request_id"
+    t.index ["permission_id"], name: "index_access_request_permissions_on_permission_id"
+  end
+
   create_table "access_requests", force: :cascade do |t|
     t.bigint "access_account_id"
     t.bigint "request_id"
+    t.bigint "end_user_id"
     t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "end_user_id"
-    t.index ["access_account_id", "end_user_id"], name: "index_access_requests_on_access_account_id_and_end_user_id", unique: true
     t.index ["access_account_id"], name: "index_access_requests_on_access_account_id"
     t.index ["end_user_id"], name: "index_access_requests_on_end_user_id"
     t.index ["request_id"], name: "index_access_requests_on_request_id"
-  end
-
-  create_table "access_requests_permissions", id: false, force: :cascade do |t|
-    t.bigint "access_request_id", null: false
-    t.bigint "permission_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "end_users", force: :cascade do |t|
@@ -79,7 +84,7 @@ ActiveRecord::Schema.define(version: 2020_03_23_095710) do
     t.bigint "end_user_id"
     t.integer "requester_id"
     t.text "note"
-    t.string "status"
+    t.string "status", default: "draft"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["end_user_id"], name: "index_requests_on_end_user_id"
@@ -122,7 +127,11 @@ ActiveRecord::Schema.define(version: 2020_03_23_095710) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "access_account_permissions", "access_accounts"
+  add_foreign_key "access_account_permissions", "permissions"
   add_foreign_key "access_request_events", "access_requests"
+  add_foreign_key "access_request_permissions", "access_requests"
+  add_foreign_key "access_request_permissions", "permissions"
   add_foreign_key "access_requests", "access_accounts"
   add_foreign_key "access_requests", "end_users"
   add_foreign_key "access_requests", "requests"
