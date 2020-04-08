@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   
   resources :requests do
     resources :access_requests, controller: 'requests/access_requests'
+    collection do
+       get :drafts
+       get :submitted
+    end
   end
   resources :permissions
   resources :end_users

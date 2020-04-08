@@ -4,7 +4,17 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
-    @requests = Request.all
+    @requests = current_user.requests.order('created_at DESC')
+  end
+
+  def drafts
+    @requests = current_user.requests.where(status: 'draft')
+    render 'index'
+  end
+
+  def submitted
+    @requests = current_user.requests.where(status: 'submitted')
+    render 'index'
   end
 
   # GET /requests/1
@@ -19,6 +29,7 @@ class RequestsController < ApplicationController
 
   # GET /requests/1/edit
   def edit
+    redirect_to @request, notice: "Request already submitted" if @request.submitted?
   end
 
   # POST /requests
@@ -42,7 +53,9 @@ class RequestsController < ApplicationController
   def update
     respond_to do |format|
       if @request.update(request_params)
-        format.html { redirect_to new_request_access_request_path(@request) }
+        @request.update(status: "submitted")
+        @request.access_requests.each { |access_request| access_request.submit(current_user) }
+        format.html { redirect_to @request }
         format.json { render :show, status: :ok, location: @request }
       else
         format.html { render :edit }

@@ -3,30 +3,53 @@
     <span class="glyphicon glyphicon-plus"></span>
     New Request
   <% end %>
-  <h1>Requests</h1>
+  <h2>Requests</h2>
 </div>
+<ul class="nav nav-tabs">
+  <li <% if params[:action] == 'index' %>class="active"<% end %>>
+    <%= link_to requests_path do %>
+      All
+      <span class="badge"><%= Request.count %></span>
+    <% end %>    
+  </li>
+  <li <% if params[:action] == 'submitted' %>class="active"<% end %>>
+    <%= link_to submitted_requests_path do %>
+      Submitted
+      <span class="badge"><%= Request.submitted.count %></span>
+    <% end %>   
+  </li>
+  <li <% if params[:action] == 'drafts' %>class="active"<% end %>>
+    <%= link_to drafts_requests_path do %>
+     Drafts
+     <span class="badge"><%= Request.drafts.count %></span>
+    <% end %>  
+  </li>
+</ul>
 
 <div class="table-responsive">
-  <table class="table table-condensed table-hover">
+  <table class="table table-hover">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Email</th>
+        <th>Request</th>
+        <th>End User</th>
         <th>Requester</th>
-        <th>Actions</th>
+        <th>Status</th>
+        <th></th>
       </tr>
     </thead>
 
     <tbody>
       <%= content_tag_for(:tr, @requests) do |request| %>
-            <td><%= request.end_user.name %></td>
-            <td><%= request.end_user.email %></td>
-            <td><%= request.requester.name %></td>
-            <td>
-              <%= link_to 'Show', request %> |
-              <%= link_to 'Edit', edit_request_path(request) %> |
-              <%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %>
-            </td>
+        <td><%= request.id %></td>   
+        <td><%= request.end_user_name %></td>
+        <td><%= request.requester_name %></td>
+        <td><%= content_tag :span, class: "label label-#{request.label_class}" do %><%= request.status %><% end %></td>
+        <td>
+          <%= link_to request, class: "btn btn-xs btn-info" do %>
+            <span class="glyphicon glyphicon-info-sign"></span>
+            Show
+          <% end %>
+        </td>
       <% end %>
     </tbody>
   </table>
