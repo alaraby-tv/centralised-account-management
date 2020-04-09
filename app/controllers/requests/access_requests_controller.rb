@@ -45,6 +45,7 @@ class Requests::AccessRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @access_request.update(access_request_params)
+        @access_request.submit current_user
         format.html { redirect_to @request, notice: 'Access request was successfully updated.' }
         format.json { render :show, status: :ok, location: @access_request }
       else
