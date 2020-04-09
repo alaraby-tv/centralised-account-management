@@ -30,7 +30,6 @@ class Requests::AccessRequestsController < ApplicationController
 
     respond_to do |format|
       if @access_request.save
-        @access_request.draft current_user
         format.html { redirect_to new_request_access_request_path(@request), notice: 'Access Account was successfully added to your request.' }
         format.json { render :show, status: :created, location: @requests_access_request }
       else

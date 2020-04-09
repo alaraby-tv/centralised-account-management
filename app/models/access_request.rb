@@ -12,7 +12,7 @@ class AccessRequest < ApplicationRecord
   delegate :name, to: :access_account, prefix: true
 
   STATES = %w[draft submitted approved rejected completed]
-  delegate :submitted?, :approved?, :rejected?, :completed?, to: :current_state
+  delegate :draft?, :submitted?, :approved?, :rejected?, :completed?, to: :current_state
 
   def self.submitted_requests
     joins(:access_request_events).merge RequestEvent.with_last_state("submitted")
@@ -20,10 +20,6 @@ class AccessRequest < ApplicationRecord
 
   def current_state
     (access_request_events.last.try(:state) || STATES.first).inquiry
-  end
-
-  def draft(user)
-    access_request_events.create!(user_name: user.name)
   end
 
   def submit(user)
@@ -42,14 +38,12 @@ class AccessRequest < ApplicationRecord
   end
 
   def complete(user)
-    access_request_events.create!(state: "completed", user_name: user.name) if current_state.approved?
-    # RequestStatusMailer.cancelled_request_notification(self).deliver
+    access_request_events.create!(state: "completed", user_name: user.name) unless current_state.rejected?
+    # RequestStatusMailer.completed_request_notification(self).deliver
   end
 
   def label_class
     case current_state
-    when 'draft'
-      'info'
     when 'submitted'
       'primary'
     when 'approved'
@@ -58,6 +52,8 @@ class AccessRequest < ApplicationRecord
       'danger'
     when 'completed'
       'success'
+    else
+      'info'
     end
   end
 
