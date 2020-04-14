@@ -10,9 +10,13 @@ class AccessRequest < ApplicationRecord
   validates :permissions, presence: true, if: :access_account_with_permissions?
 
   delegate :name, to: :access_account, prefix: true
+  delegate :name, to: :end_user, prefix: true
+  delegate :name, to: :permission
+  delegate :approver, to: :access_account
+  delegate :requester_name, to: :request
 
-  STATES = %w[draft submitted approved rejected completed]
-  delegate :draft?, :submitted?, :approved?, :rejected?, :completed?, to: :current_state
+  STATES = %w[draft submitted resubmitted approved rejected completed]
+  delegate :draft?, :submitted?, :resubmitted?, :approved?, :rejected?, :completed?, to: :current_state
 
   def self.submitted_requests
     joins(:access_request_events).merge RequestEvent.with_last_state("submitted")
@@ -23,17 +27,22 @@ class AccessRequest < ApplicationRecord
   end
 
   def submit(user)
-    access_request_events.create!(state: "submitted", user_name: user.name)
+    access_request_events.create!(state: "submitted", user_name: user.name) if current_state.draft?
     # RequestStatusMailer.new_request_notification(self).deliver
   end
 
+  def resubmit(user)
+    access_request_events.create!(state: "resubmitted", user_name: user.name) if ready_to_resubmit?
+    # RequestStatusMailer.updated_request_notification(self).deliver
+  end
+
   def approve(user, comment)
-    access_request_events.create!(state: "approved", user_name: user.name, comment: comment) if current_state.submitted?
+    access_request_events.create!(state: "approved", user_name: user.name, comment: comment) if ready_to_approve_or_reject?
     # RequestStatusMailer.approved_request_notification(self).deliver
   end
 
   def reject(user, comment)
-    access_request_events.create!( state: "rejected", user_name: user.name, comment: comment) if current_state.submitted?
+    access_request_events.create!( state: "rejected", user_name: user.name, comment: comment) if ready_to_approve_or_reject?
     # RequestStatusMailer.rejected_request_notification(self).deliver
   end
 
@@ -42,22 +51,15 @@ class AccessRequest < ApplicationRecord
     # RequestStatusMailer.completed_request_notification(self).deliver
   end
 
-  def label_class
-    case current_state
-    when 'submitted'
-      'primary'
-    when 'approved'
-      'warning'
-    when 'rejected'
-      'danger'
-    when 'completed'
-      'success'
-    else
-      'info'
-    end
-  end
-
   def access_account_with_permissions?
     access_account.permissions.any?
+  end
+
+  def ready_to_approve_or_reject
+    current_state.submitted? or current_state.resubmitted?
+  end
+
+  def ready_to_resubmit
+    current_state.approved? or current_state.rejected? or current_state.completed?
   end
 end
