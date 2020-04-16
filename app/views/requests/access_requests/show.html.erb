@@ -3,15 +3,22 @@
     <span class="glyphicon glyphicon-th-list"></span>
     Back
   <% end %>
-  <% if @access_request.ready_to_cancel? %>
-    <%= link_to cancel_request_access_request_path(@request, @access_request), data: { toggle: "modal", target: "#cancelModal" }, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-remove"></span>
-      Cancel
+  <% if @access_request.current_state.approved? and current_user.support_member? %>
+    <%= link_to complete_request_access_request_path(@request, @access_request), method: :post, class: 'btn btn-success' do %>
+      <span class="glyphicon glyphicon-ok"></span>
+      Grant Access
     <% end %>
-  <% end %>
-  <%= link_to edit_request_access_request_path(@request, @access_request), class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+  <% elsif @access_request.owner? current_user %>
+    <% if @access_request.ready_to_cancel? %>
+      <%= link_to cancel_request_access_request_path(@request, @access_request), data: { toggle: "modal", target: "#cancelModal" }, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-remove"></span>
+        Cancel
+      <% end %>
+    <% end %>
+    <%= link_to edit_request_access_request_path(@request, @access_request), class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      Edit
+    <% end %>
   <% end %>
   <% if @access_request.ready_to_approve? and @access_request.approver? current_user %>
     <%= link_to "#", class: 'btn btn-danger', data: { toggle: "modal", target: "#rejectModal" } do %>
@@ -63,7 +70,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @access_request.access_request_events.each do |event| %>
+      <% @access_request.access_request_events.order(:created_at).each do |event| %>
         <tr>
           <td>
             <%= content_tag :span, class: "label label-#{label_class event.state}" do %><%= event.state %><% end %>

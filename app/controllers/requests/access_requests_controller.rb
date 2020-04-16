@@ -1,6 +1,6 @@
 class Requests::AccessRequestsController < ApplicationController
   before_action :set_request
-  before_action :set_access_request, only: [:show, :edit, :update, :destroy, :approve, :reject, :cancel]
+  before_action :set_access_request, only: [:show, :edit, :update, :destroy, :approve, :reject, :cancel, :complete]
 
   # GET /requests/access_requests
   # GET /requests/access_requests.json
@@ -60,6 +60,11 @@ class Requests::AccessRequestsController < ApplicationController
       @access_request.cancel current_user, params[:comment]
       redirect_back fallback_location: root_path, notice: "Access Cancelled"
     end
+  end
+
+  def complete
+    @access_request.complete current_user
+    redirect_back fallback_location: root_path, notice: "Access Granted"
   end
 
   # PATCH/PUT /requests/access_requests/1
