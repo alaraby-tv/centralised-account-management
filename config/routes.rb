@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
   
   resources :requests do
-    resources :access_requests, controller: 'requests/access_requests'
+    resources :access_requests, controller: 'requests/access_requests' do
+      member do
+        post :approve
+        post :reject
+        post :cancel
+      end
+    end
+
     collection do
        get :drafts
        get :submitted
