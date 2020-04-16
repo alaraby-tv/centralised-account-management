@@ -60,21 +60,13 @@
           <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
         <% end %>
         <hr>
-        <table class="table table-condensed">
-          <thead>
-            <tr>
-              <th>Added Accounts :</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @request.access_accounts.each do |account| %>
-              <tr>
-                <td><%= account.name %></td> 
-              </tr>  
-            <% end %>
-          </tbody>
-        </table>
-      <% end %>
     </div>
+    <dl class="dl-horizontal">
+      <dt>Added Accounts</dt>
+      <% @request.access_accounts.each do |account| %>
+        <dd><%= account.name %></dd>  
+      <% end %>
+    </dl>
+    <% end %>
   </div>
 <% end %>
