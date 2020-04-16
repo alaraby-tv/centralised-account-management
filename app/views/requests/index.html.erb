@@ -43,7 +43,7 @@
         <td><%= request.id %></td>   
         <td><%= request.end_user_name %></td>
         <td><%= request.requester_name %></td>
-        <td><%= content_tag :span, class: "label label-#{request.label_class}" do %><%= request.status %><% end %></td>
+        <td><%= content_tag :span, class: "label label-#{label_class request.status}" do %><%= request.status %><% end %></td>
         <td>
           <%= link_to request, class: "btn btn-xs btn-info" do %>
             <span class="glyphicon glyphicon-info-sign"></span>

@@ -17,7 +17,7 @@
     <span class="glyphicon glyphicon-info-sign"></span>
     Show
   <% end %>
-  <h2>Finalising Request No. <%= @request.id %> <small><%= content_tag :span, class: "label label-#{@request.label_class}" do %><%= @request.status %><% end %></small></h2>
+  <h2>Finalising Request No. <%= @request.id %> <small><%= content_tag :span, class: "label label-#{label_class @request.status}" do %><%= @request.status %><% end %></small></h2>
 </div>
 
 <%= form_for(@request, html: { class: "form-horizontal", role: "form" }) do |f| %>
