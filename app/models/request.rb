@@ -12,10 +12,6 @@ class Request < ApplicationRecord
 
   validates :access_requests, presence: true, on: :update
 
-  def label_class
-    status == "submitted" ? 'primary' : 'info'
-  end
-
   def self.drafts
     where(status: 'draft')
   end
