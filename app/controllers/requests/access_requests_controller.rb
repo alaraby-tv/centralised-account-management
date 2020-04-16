@@ -1,6 +1,6 @@
 class Requests::AccessRequestsController < ApplicationController
   before_action :set_request
-  before_action :set_access_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_access_request, only: [:show, :edit, :update, :destroy, :approve, :reject, :cancel]
 
   # GET /requests/access_requests
   # GET /requests/access_requests.json
@@ -39,12 +39,35 @@ class Requests::AccessRequestsController < ApplicationController
     end
   end
 
+  def approve
+    @access_request.approve current_user, params[:comment]
+    redirect_back fallback_location: root_path, notice: "Access Approved"
+  end
+
+  def reject
+    if params[:comment] == ""
+      redirect_back fallback_location: root_path, flash: { error: "Please provide a comment" }
+    else
+      @access_request.reject current_user, params[:comment]
+      redirect_back fallback_location: root_path, notice: "Access Rejected" 
+    end
+  end
+
+  def cancel
+    if params[:comment] == ""
+      redirect_back fallback_location: root_path, flash: { error: "Please provide a comment" }
+    else
+      @access_request.cancel current_user, params[:comment]
+      redirect_back fallback_location: root_path, notice: "Access Cancelled"
+    end
+  end
+
   # PATCH/PUT /requests/access_requests/1
   # PATCH/PUT /requests/access_requests/1.json
   def update
     respond_to do |format|
       if @access_request.update(access_request_params)
-        @access_request.submit current_user
+        @access_request.resubmit current_user
         format.html { redirect_to @request, notice: 'Access request was successfully updated.' }
         format.json { render :show, status: :ok, location: @access_request }
       else
