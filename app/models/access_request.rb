@@ -13,10 +13,11 @@ class AccessRequest < ApplicationRecord
   delegate :name, to: :end_user, prefix: true
   delegate :name, to: :permission
   delegate :approver, to: :access_account
+  delegate :requester, to: :request
   delegate :requester_name, to: :request
 
-  STATES = %w[draft submitted resubmitted approved rejected completed]
-  delegate :draft?, :submitted?, :resubmitted?, :approved?, :rejected?, :completed?, to: :current_state
+  STATES = %w[draft submitted resubmitted approved rejected completed cancelled]
+  delegate :draft?, :submitted?, :resubmitted?, :approved?, :rejected?, :completed?, :cancelled?, to: :current_state
 
   def self.submitted_requests
     joins(:access_request_events).merge RequestEvent.with_last_state("submitted")
@@ -27,7 +28,7 @@ class AccessRequest < ApplicationRecord
   end
 
   def submit(user)
-    access_request_events.create!(state: "submitted", user_name: user.name) if current_state.draft?
+    @event = access_request_events.create!(state: "submitted", user_name: user.name) if current_state.draft?
     # RequestStatusMailer.new_request_notification(self).deliver
   end
 
@@ -37,17 +38,22 @@ class AccessRequest < ApplicationRecord
   end
 
   def approve(user, comment)
-    access_request_events.create!(state: "approved", user_name: user.name, comment: comment) if ready_to_approve_or_reject?
+    access_request_events.create!(state: "approved", user_name: user.name, comment: comment) if ready_to_approve?
     # RequestStatusMailer.approved_request_notification(self).deliver
   end
 
   def reject(user, comment)
-    access_request_events.create!( state: "rejected", user_name: user.name, comment: comment) if ready_to_approve_or_reject?
+    access_request_events.create!( state: "rejected", user_name: user.name, comment: comment) if ready_to_approve?
     # RequestStatusMailer.rejected_request_notification(self).deliver
   end
 
+  def cancel(user, comment)
+    access_request_events.create!(state: "cancelled", user_name: user.name, comment: comment) if ready_to_cancel?
+    # RequestStatusMailer.completed_request_notification(self).deliver
+  end
+
   def complete(user)
-    access_request_events.create!(state: "completed", user_name: user.name) unless current_state.rejected?
+    access_request_events.create!(state: "completed", user_name: user.name) if current_state.approved?
     # RequestStatusMailer.completed_request_notification(self).deliver
   end
 
@@ -55,11 +61,23 @@ class AccessRequest < ApplicationRecord
     access_account.permissions.any?
   end
 
-  def ready_to_approve_or_reject
+  def ready_to_approve?
     current_state.submitted? or current_state.resubmitted?
   end
 
-  def ready_to_resubmit
-    current_state.approved? or current_state.rejected? or current_state.completed?
+  def ready_to_resubmit?
+    !ready_to_approve? and !current_state.draft?
+  end
+
+  def ready_to_cancel?
+    !current_state.cancelled? and !current_state.draft?
+  end
+
+  def approver?(user)
+    user == approver and user != requester
+  end
+
+  def owner?(user)
+    user == requester
   end
 end
