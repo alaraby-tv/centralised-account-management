@@ -53,7 +53,7 @@ class AccessRequest < ApplicationRecord
   end
 
   def complete(user)
-    access_request_events.create!(state: "completed", user_name: user.name) if current_state.approved?
+    access_request_events.create!(state: "granted", user_name: user.name) if current_state.approved?
     # RequestStatusMailer.completed_request_notification(self).deliver
   end
 

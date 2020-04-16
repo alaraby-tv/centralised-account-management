@@ -9,7 +9,7 @@ module ApplicationHelper
       'warning'
     when 'rejected'
       'danger'
-    when 'completed'
+    when 'granted'
       'success'
     else
       'default'
