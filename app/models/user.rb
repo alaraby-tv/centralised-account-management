@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :access_accounts, foreign_key: "approver_id", inverse_of: :approver
   has_many :requests, foreign_key: "requester_id", inverse_of: :requester
   has_many :access_requests, through: :requests
-
+  
   def name
     "#{first_name} #{last_name}"
   end
