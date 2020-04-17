@@ -34,6 +34,9 @@ class UserDashboard < Administrate::BaseDashboard
     invitation_limit: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    password: Field::Password,
+    password_confirmation: Field::Password,
+    admin: Field::Boolean,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -43,6 +46,7 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
   name
+  admin
   role
   access_accounts
   access_requests
@@ -51,29 +55,23 @@ class UserDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+  id
+  first_name
+  last_name
+  email
   invited_by
   role
   access_accounts
   requests
   access_requests
-  id
-  first_name
-  last_name
-  email
-  encrypted_password
-  reset_password_token
   reset_password_sent_at
-  remember_created_at
   sign_in_count
   current_sign_in_at
   last_sign_in_at
   current_sign_in_ip
   last_sign_in_ip
-  invitation_token
-  invitation_created_at
   invitation_sent_at
   invitation_accepted_at
-  invitation_limit
   created_at
   updated_at
   ].freeze
@@ -82,28 +80,16 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-  invited_by
-  role
-  access_accounts
-  requests
-  access_requests
   first_name
   last_name
   email
-  encrypted_password
-  reset_password_token
-  reset_password_sent_at
-  remember_created_at
-  sign_in_count
-  current_sign_in_at
-  last_sign_in_at
-  current_sign_in_ip
-  last_sign_in_ip
-  invitation_token
-  invitation_created_at
+  invited_by
+  admin
+  role
+  password
+  password_confirmation
   invitation_sent_at
   invitation_accepted_at
-  invitation_limit
   ].freeze
 
   # COLLECTION_FILTERS
