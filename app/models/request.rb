@@ -1,7 +1,6 @@
 class Request < ApplicationRecord
   belongs_to :end_user, inverse_of: :requests
   belongs_to :requester, class_name: 'User', inverse_of: :requests
-  has_many :request_events, inverse_of: :request
   has_many :access_requests, dependent: :destroy, inverse_of: :request
   has_many :access_accounts, through: :access_requests
   accepts_nested_attributes_for :access_requests,
