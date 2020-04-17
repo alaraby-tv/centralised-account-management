@@ -14,6 +14,7 @@ class EndUserDashboard < Administrate::BaseDashboard
     id: Field::Number,
     first_name: Field::String,
     last_name: Field::String,
+    name: Field::String,
     email: Field::String,
     role_id: Field::Number,
     created_at: Field::DateTime,
@@ -26,10 +27,9 @@ class EndUserDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+  name
   requests
   access_requests
-  access_accounts
-  id
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -75,7 +75,7 @@ class EndUserDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how end users are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(end_user)
-  #   "EndUser ##{end_user.id}"
-  # end
+  def display_resource(end_user)
+    end_user.name
+  end
 end

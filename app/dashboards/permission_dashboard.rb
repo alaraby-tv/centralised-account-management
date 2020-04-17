@@ -24,9 +24,8 @@ class PermissionDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-  access_request_permissions
+  name
   access_requests
-  access_account_permissions
   access_accounts
   ].freeze
 
@@ -69,7 +68,7 @@ class PermissionDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how permissions are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(permission)
-  #   "Permission ##{permission.id}"
-  # end
+  def display_resource(permission)
+    permission.name
+  end
 end

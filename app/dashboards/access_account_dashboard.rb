@@ -28,9 +28,9 @@ class AccessAccountDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+  name
   approver
   access_requests
-  requests
   end_users
   ].freeze
 
@@ -81,7 +81,7 @@ class AccessAccountDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how access accounts are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(access_account)
-  #   "AccessAccount ##{access_account.id}"
-  # end
+  def display_resource(access_account)
+    access_account.name
+  end
 end

@@ -24,7 +24,7 @@ class AccessRequestEventDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
   access_request
-  id
+  user_name
   state
   comment
   ].freeze
