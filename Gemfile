@@ -20,6 +20,7 @@ gem 'devise-bootstrap-views', '~>0.0.11'
 gem 'record_tag_helper', '~> 1.0'
 gem 'cocoon'
 gem 'wicked'
+gem "administrate"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

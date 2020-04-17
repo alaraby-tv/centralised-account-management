@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
   
+  namespace :admin do
+      resources :users
+      resources :access_accounts
+      resources :access_account_permissions
+      resources :access_requests
+      resources :access_request_events
+      resources :access_request_permissions
+      resources :end_users
+      resources :permissions
+      resources :requests
+      resources :roles
+
+      root to: "users#index"
+    end
   resources :requests do
     resources :access_requests, controller: 'requests/access_requests' do
       member do
