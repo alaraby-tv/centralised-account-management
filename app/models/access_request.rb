@@ -2,6 +2,7 @@ class AccessRequest < ApplicationRecord
   belongs_to :access_account, inverse_of: :access_requests
   belongs_to :end_user, inverse_of: :access_requests
   belongs_to :request, inverse_of: :access_requests
+  belongs_to :access_requester, class_name: 'User', inverse_of: :access_requests
   has_many :access_request_events, dependent: :destroy, inverse_of: :access_request
   has_many :access_request_permissions, dependent: :destroy, inverse_of: :access_request
   has_many :permissions, -> { distinct }, through: :access_request_permissions

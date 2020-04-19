@@ -8,6 +8,7 @@ class User < ApplicationRecord
   belongs_to :role, inverse_of: :users
   has_many :access_accounts, foreign_key: "approver_id", inverse_of: :approver
   has_many :requests, foreign_key: "requester_id", inverse_of: :requester
+  has_many :access_requests, foreign_key: "access_requester_id", inverse_of: :access_requester
   has_many :access_requests, through: :requests
 
   delegate :name, to: :role, prefix: true
