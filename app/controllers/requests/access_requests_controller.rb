@@ -27,12 +27,13 @@ class Requests::AccessRequestsController < ApplicationController
   # POST /requests/access_requests.json
   def create
     @access_request = @request.access_requests.build(access_request_params)
-
+    @access_request.approve(current_user, comment: "No management approval needed") unless @access_request.approvable
     respond_to do |format|
       if @access_request.save
         format.html { redirect_to new_request_access_request_path(@request), notice: 'Access Account was successfully added to your request.' }
         format.json { render :show, status: :created, location: @requests_access_request }
       else
+        @access_request.permissions.clear
         format.html { render :new }
         format.json { render json: @access_request.errors, status: :unprocessable_entity }
       end
@@ -99,7 +100,7 @@ class Requests::AccessRequestsController < ApplicationController
     end
 
     def set_access_request
-      @access_request = AccessRequest.find(params[:id])
+      @access_request = @request.access_requests.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
