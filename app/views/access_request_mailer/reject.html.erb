@@ -1,0 +1,10 @@
+<p>Dear <%= @request.requester_name %>,</p>
+
+<p>
+  Access to <%= @access_request.access_account_name %> for <%= @access_request.end_user_name %> was rejected.
+  For more details please click <%= link_to 'here', request_access_request_url(@request, @access_request), target: '_blank' %>.
+</p>
+
+<p>Best Regards,</p>
+
+<p>Admin Team.</p>
