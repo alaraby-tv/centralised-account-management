@@ -13,9 +13,12 @@ class AccessRequest < ApplicationRecord
 
   delegate :name, to: :access_account, prefix: true
   delegate :name, to: :end_user, prefix: true
+  delegate :name, to: :access_requester, prefix: true
+  delegate :email, to: :access_requester, prefix: true
   delegate :name, to: :permission
-  delegate :approvable, :approver, :approver_name, :approver_email, to: :access_account
-  delegate :requester, :requester_name, :requester_email, to: :request
+  delegate :approvable, :approver, :approver_name, to: :access_account
+  delegate :requester, :requester_name, to: :request
+
 
   STATES = %w[draft submitted resubmitted approved rejected completed cancelled]
   delegate :draft?, :submitted?, :resubmitted?, :approved?, :rejected?, :completed?, :cancelled?, to: :current_state
