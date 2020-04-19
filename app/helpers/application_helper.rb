@@ -6,11 +6,11 @@ module ApplicationHelper
     when 'resubmitted'
       'info'
     when 'approved'
-      'warning'
+      'success'
     when 'rejected'
       'danger'
     when 'granted'
-      'success'
+      'warning'
     else
       'default'
     end
