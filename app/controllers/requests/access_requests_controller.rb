@@ -27,7 +27,7 @@ class Requests::AccessRequestsController < ApplicationController
   # POST /requests/access_requests.json
   def create
     @access_request = @request.access_requests.build(access_request_params)
-    @access_request.approve(current_user, comment: "No management approval needed") unless @access_request.approvable
+    @access_request.access_requester = current_user
     respond_to do |format|
       if @access_request.save
         format.html { redirect_to new_request_access_request_path(@request), notice: 'Access Account was successfully added to your request.' }

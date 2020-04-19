@@ -8,6 +8,7 @@ class AccessRequest < ApplicationRecord
   has_many :permissions, -> { distinct }, through: :access_request_permissions
 
   validates_uniqueness_of :end_user, scope: :access_account, message: "is assigned to this account already"
+  validates :access_requester, :end_user, :access_account, presence: true
   validates :permissions, presence: true, if: :access_account_with_permissions?
 
   delegate :name, to: :access_account, prefix: true
