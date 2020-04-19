@@ -14,7 +14,7 @@ class AccessAccount < ApplicationRecord
   validates :name, presence: true
   validates_presence_of :approver, if: :approvable
 
-  delegate :name, to: :approver, prefix: true
+  delegate :name, to: :approver, prefix: true, allow_nil: true
 
   private
 
