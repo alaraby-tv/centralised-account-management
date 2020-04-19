@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_233249) do
+ActiveRecord::Schema.define(version: 2020_04_19_184600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "adminpack"
@@ -60,7 +60,9 @@ ActiveRecord::Schema.define(version: 2020_04_16_233249) do
     t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "access_requester_id"
     t.index ["access_account_id"], name: "index_access_requests_on_access_account_id"
+    t.index ["access_requester_id"], name: "index_access_requests_on_access_requester_id"
     t.index ["end_user_id"], name: "index_access_requests_on_end_user_id"
     t.index ["request_id"], name: "index_access_requests_on_request_id"
   end
