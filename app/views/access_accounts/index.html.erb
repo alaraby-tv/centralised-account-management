@@ -1,9 +1,15 @@
 <div class="page-header">
-  <%= link_to new_access_account_path, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-plus"></span>
-    New Access Account
+  <%= link_to root_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-th-list"></span>
+      Back
+    <% end %>
+  <% if current_user.admin %>
+    <%= link_to new_access_account_path, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      New Access Account
+    <% end %>
   <% end %>
-  <h1>Access Accounts</h1>
+  <h2>Access Accounts</h2>
 </div>
 
 <div class="table-responsive">
@@ -11,6 +17,7 @@
     <thead>
       <tr>
         <th>Name</th>
+        <th>Approver</th>
         <th></th>
       </tr>
     </thead>
@@ -18,10 +25,12 @@
     <tbody>
       <%= content_tag_for(:tr, @access_accounts) do |access_account| %>
             <td><%= access_account.name %></td>
+            <td><%= access_account.approver.try(:name) %></td>
             <td>
-              <%= link_to 'Show', access_account %> | 
-              <%= link_to 'Edit', edit_access_account_path(access_account) %> | 
-              <%= link_to 'Destroy', access_account, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= link_to access_account, class: "btn btn-xs btn-info" do %>
+                <span class="glyphicon glyphicon-info-sign"></span>
+                Show
+              <% end %>
             </td>
       <% end %>
     </tbody>

@@ -1,5 +1,9 @@
 <div class="page-header">
-  <% if current_user.admin? %>
+  <%= link_to root_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-th-list"></span>
+      Back
+    <% end %>
+  <% if current_user.admin %>
     <%= link_to edit_access_account_path(@access_account), class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-pencil"></span>
       Edit
