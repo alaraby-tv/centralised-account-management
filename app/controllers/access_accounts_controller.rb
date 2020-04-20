@@ -11,6 +11,7 @@ class AccessAccountsController < ApplicationController
   # GET /access_accounts/1
   # GET /access_accounts/1.json
   def show
+    @access_requests = @access_account.access_requests
     add_breadcrumb "#{@access_account.name}", :access_account_path
   end
 
