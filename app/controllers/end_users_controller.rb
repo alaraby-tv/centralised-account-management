@@ -11,6 +11,7 @@ class EndUsersController < ApplicationController
   # GET /end_users/1
   # GET /end_users/1.json
   def show
+    @access_requests = @end_user.access_requests
     add_breadcrumb "#{@end_user.name}", @end_user
   end
 
