@@ -25,7 +25,7 @@ class RequestsController < ApplicationController
   # GET /requests/1
   # GET /requests/1.json
   def show
-    add_breadcrumb "Request No. #{@request.id}", @request
+    add_breadcrumb "Request No. #{@request.id}"
   end
 
   # GET /requests/new
@@ -37,7 +37,8 @@ class RequestsController < ApplicationController
   # GET /requests/1/edit
   def edit
     redirect_to @request, notice: "Request already submitted" if @request.submitted?
-    add_breadcrumb "Edit Request No. #{@request.id}"
+    add_breadcrumb "Request No. #{@request.id}", @request
+    add_breadcrumb "Finalise"
   end
 
   # POST /requests
