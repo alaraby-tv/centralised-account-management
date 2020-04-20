@@ -8,24 +8,28 @@
   <h2><%= @access_account.name %></h2>
   <p>Approver : <%= @access_account.approver.try(:name) %></p>
 </div>
+<h4><em>Access Requests</em></h4>
 <div class="table-responsive">
   <table class="table table-table-condensed table-hover">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>End User</th>
         <th>Requester</th>
+        <th>State</th>
         <th></th>
       </tr>
     </thead>
 
     <tbody>
-      <%= content_tag_for(:tr, @access_account.requests) do |request| %>
-        <td><%= request.end_user.name %></td>
-        <td><%= request.requester.name %></td>
+      <%= content_tag_for(:tr, @access_requests) do |access_request| %>
+        <td><%= access_request.end_user_name %></td>
+        <td><%= access_request.requester_name %></td>
+        <td><%= content_tag :span, class: "label label-#{label_class access_request.current_state}" do %><%= access_request.current_state %><% end %></td>
         <td>
-          <%= link_to 'Show', request %> |
-          <%= link_to 'Edit', edit_request_path(request) %> |
-          <%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to [access_request.request, access_request], class: "btn btn-xs btn-info" do %>
+            <span class="glyphicon glyphicon-info-sign"></span>
+            Show
+          <% end %>
         </td>
       <% end %>
     </tbody>
