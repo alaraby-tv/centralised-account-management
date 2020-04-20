@@ -2,25 +2,35 @@ class Requests::AccessRequestsController < ApplicationController
   before_action :set_request
   before_action :set_access_request, only: [:show, :edit, :update, :destroy, :approve, :reject, :cancel, :complete]
 
+  add_breadcrumb "Requests", :requests_path
+
   # GET /requests/access_requests
   # GET /requests/access_requests.json
   def index
     @access_requests = @request.access_requests
+    add_breadcrumb "Request No. #{@request.id}", @request
   end
 
   # GET /requests/access_requests/1
   # GET /requests/access_requests/1.json
   def show
+    add_breadcrumb "Request No. #{@request.id}", @request
+    add_breadcrumb "Access Request No. #{@access_request.id}", [@request, @access_request]
   end
 
   # GET /requests/access_requests/new
   def new
     @access_request = @request.access_requests.build
     @access_request.permissions.build
+    add_breadcrumb "Request No. #{@request.id}", @request
+    add_breadcrumb "New Access Request"
   end
 
   # GET /requests/access_requests/1/edit
   def edit
+    add_breadcrumb "Request No. #{@request.id}", @request
+    add_breadcrumb "Access Request No. #{@access_request.id}", [@request, @access_request]
+    add_breadcrumb "Edit"
   end
 
   # POST /requests/access_requests

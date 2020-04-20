@@ -9,19 +9,19 @@
   <li <% if params[:action] == 'index' %>class="active"<% end %>>
     <%= link_to requests_path do %>
       All
-      <span class="badge"><%= Request.count %></span>
+      <span class="badge"><%= current_user.requests.count %></span>
     <% end %>    
   </li>
   <li <% if params[:action] == 'submitted' %>class="active"<% end %>>
     <%= link_to submitted_requests_path do %>
       Submitted
-      <span class="badge"><%= Request.submitted.count %></span>
+      <span class="badge"><%= current_user.requests.submitted.count %></span>
     <% end %>   
   </li>
   <li <% if params[:action] == 'drafts' %>class="active"<% end %>>
     <%= link_to drafts_requests_path do %>
      Drafts
-     <span class="badge"><%= Request.drafts.count %></span>
+     <span class="badge"><%= current_user.requests.drafts.count %></span>
     <% end %>  
   </li>
 </ul>

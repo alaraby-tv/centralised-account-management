@@ -1,6 +1,7 @@
 class EndUsersController < ApplicationController
   before_action :set_end_user, only: [:show, :edit, :update, :destroy]
 
+  add_breadcrumb "End Users", :end_users_path
   # GET /end_users
   # GET /end_users.json
   def index
@@ -10,15 +11,19 @@ class EndUsersController < ApplicationController
   # GET /end_users/1
   # GET /end_users/1.json
   def show
+    add_breadcrumb "#{@end_user.name}", @end_user
   end
 
   # GET /end_users/new
   def new
     @end_user = EndUser.new
+    add_breadcrumb "New"
   end
 
   # GET /end_users/1/edit
   def edit
+    add_breadcrumb "#{@end_user.name}", @end_user
+    add_breadcrumb "Edit"
   end
 
   # POST /end_users

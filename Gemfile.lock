@@ -67,6 +67,8 @@ GEM
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
+    breadcrumbs_on_rails (4.0.0)
+      rails (>= 5.0)
     builder (3.2.4)
     byebug (11.1.1)
     cocoon (1.2.14)
@@ -247,6 +249,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap-generators (~> 3.3.4)
   bootstrap-sass (~> 3.4.1)
+  breadcrumbs_on_rails
   byebug
   cocoon
   coffee-rails (~> 4.2)

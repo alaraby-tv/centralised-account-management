@@ -4,8 +4,8 @@
     Back
   <% end %>
   <% if @access_request.ready_to_complete? and current_user.support_member? %>
-    <%= link_to complete_request_access_request_path(@request, @access_request), method: :post, class: 'btn btn-success' do %>
-      <span class="glyphicon glyphicon-ok"></span>
+    <%= link_to complete_request_access_request_path(@request, @access_request), method: :post, class: 'btn btn-warning' do %>
+      <span class="glyphicon glyphicon-check"></span>
       Grant Access
     <% end %>
   <% elsif @access_request.owner? current_user %>

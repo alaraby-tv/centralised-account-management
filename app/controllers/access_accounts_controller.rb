@@ -5,17 +5,20 @@ class AccessAccountsController < ApplicationController
   # GET /access_accounts.json
   def index
     @access_accounts = AccessAccount.all
+    add_breadcrumb "Access Accounts", :access_accounts_path
   end
 
   # GET /access_accounts/1
   # GET /access_accounts/1.json
   def show
+    add_breadcrumb "#{@access_account.name}", :access_account_path
   end
 
   # GET /access_accounts/new
   def new
     @access_account = AccessAccount.new
     @access_account.permissions.build
+    add_breadcrumb "New Access Accounts"
   end
 
   # GET /access_accounts/1/edit

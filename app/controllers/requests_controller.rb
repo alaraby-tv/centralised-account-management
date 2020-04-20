@@ -1,35 +1,43 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy]
 
+  add_breadcrumb "Requests", :requests_path
+
   # GET /requests
   # GET /requests.json
   def index
     @requests = current_user.requests.order('created_at DESC')
+    add_breadcrumb "All", :requests_path
   end
 
   def drafts
-    @requests = current_user.requests.where(status: 'draft')
+    @requests = current_user.requests.order('created_at DESC').where(status: 'draft')
+    add_breadcrumb "Drafts", :drafts_requests_path
     render 'index'
   end
 
   def submitted
-    @requests = current_user.requests.where(status: 'submitted')
+    @requests = current_user.requests.order('created_at DESC').where(status: 'submitted')
+    add_breadcrumb "Submitted", :submitted_requests_path
     render 'index'
   end
 
   # GET /requests/1
   # GET /requests/1.json
   def show
+    add_breadcrumb "Request No. #{@request.id}", @request
   end
 
   # GET /requests/new
   def new
     @request = current_user.requests.build
+    add_breadcrumb "New Request"
   end
 
   # GET /requests/1/edit
   def edit
     redirect_to @request, notice: "Request already submitted" if @request.submitted?
+    add_breadcrumb "Edit Request No. #{@request.id}"
   end
 
   # POST /requests
