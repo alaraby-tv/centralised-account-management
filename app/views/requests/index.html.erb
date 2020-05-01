@@ -5,7 +5,7 @@
   <% end %>
   <h2>Requests</h2>
 </div>
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs nav-justified">
   <li <% if params[:action] == 'index' %>class="active"<% end %>>
     <%= link_to requests_path do %>
       All
@@ -41,7 +41,7 @@
     <tbody>
       <%= content_tag_for(:tr, @requests) do |request| %>
         <td><%= request.id %></td>   
-        <td><%= request.end_user_name %></td>
+        <td><%= link_to request.end_user_name, request.end_user %></td>
         <td><%= request.requester_name %></td>
         <td><%= content_tag :span, class: "label label-#{label_class request.status}" do %><%= request.status %><% end %></td>
         <td>
