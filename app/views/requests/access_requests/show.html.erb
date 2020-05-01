@@ -10,7 +10,7 @@
     <% end %>
   <% elsif @access_request.owner? current_user %>
     <% if @access_request.ready_to_cancel? %>
-      <%= link_to cancel_request_access_request_path(@request, @access_request), data: { toggle: "modal", target: "#cancelModal" }, class: 'btn btn-danger' do %>
+      <%= link_to cancel_request_access_request_path(@request, @access_request), data: { toggle: "modal", target: "#cancelModal", turbolinks: false }, class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-remove"></span>
         Cancel
       <% end %>
@@ -21,11 +21,11 @@
     <% end %>
   <% end %>
   <% if @access_request.ready_to_approve? and @access_request.approver? current_user %>
-    <%= link_to "#", class: 'btn btn-danger', data: { toggle: "modal", target: "#rejectModal" } do %>
+    <%= link_to "#", class: 'btn btn-danger', data: { toggle: "modal", target: "#rejectModal", turbolinks: false } do %>
       <span class="glyphicon glyphicon-remove"></span>
       Reject
     <% end %>
-    <%= link_to "#", class: 'btn btn-success', data: { toggle: "modal", target: "#approveModal" } do %>
+    <%= link_to "#", class: 'btn btn-success', data: { toggle: "modal", target: "#approveModal", turbolinks: false } do %>
       <span class="glyphicon glyphicon-ok"></span>
       Approve
     <% end %>
@@ -43,9 +43,13 @@
       <dd><%= @access_request.access_account_name %></dd>
 
       <dt>Permissions:</dt>
+      <% if @access_request.permissions.any? %>
         <% @access_request.permissions.each do |permission| %>
           <dd><%= permission.name %></dd>
         <% end %>
+      <% else %>
+        <dd>N/A</dd>
+      <% end %>
 
       <dt>Note:</dt>
       <dd><%= @access_request.note %></dd>

@@ -5,18 +5,17 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Reject Access</h4>
       </div>
-      <div class="modal-body">
-        <%= form_tag reject_request_access_request_path do %>
+      <%= form_tag reject_request_access_request_path do %>
+        <div class="modal-body">
           <div class="form-group">
             <%= label_tag :comment %>
             <%= text_area_tag :comment, nil, required: true, class: 'form-control' %>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <%= submit_tag 'Reject', class: 'btn btn-danger' %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
