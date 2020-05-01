@@ -1,0 +1,36 @@
+<div class="page-header">
+  <%= link_to root_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-th-list"></span>
+    Back
+  <% end %>
+  <h2>Change Password</h2>
+</div>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-horizontal' }) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="form-group">
+    <%= f.label :current_password, 'Current Password', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.password_field :current_password, autocomplete: 'off', autofocus: true, required: true, class: 'form-control' %>
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :password, 'New Password', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.password_field :password, autocomplete: 'off', autofocus: true, required: true, class: 'form-control' %>
+    </div> 
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :password_confirmation, 'New Password Confirmation', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.password_field :password_confirmation, autocomplete: 'off', autofocus: true, required: true, class: 'form-control'  %> 
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit t('.update', default: 'Update'), class: 'btn btn-primary' %>  
+    </div>
+  </div>
+<% end %>
