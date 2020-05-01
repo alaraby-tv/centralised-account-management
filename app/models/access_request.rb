@@ -24,7 +24,11 @@ class AccessRequest < ApplicationRecord
   delegate :draft?, :submitted?, :resubmitted?, :approved?, :rejected?, :completed?, :cancelled?, to: :current_state
 
   def self.submitted_requests
-    joins(:access_request_events).merge RequestEvent.with_last_state("submitted")
+    joins(:access_request_events).merge AccessRequestEvent.with_last_state("submitted")
+  end
+
+  def self.approved_requests
+    joins(:access_request_events).merge AccessRequestEvent.with_last_state("approved")
   end
 
   def current_state

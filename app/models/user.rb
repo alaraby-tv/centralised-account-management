@@ -18,10 +18,18 @@ class User < ApplicationRecord
   end
 
   def admin?
-    role_name == 'admin'
+    admin
+  end
+
+  def coordinator?
+    role_name == 'coordinator'
   end
 
   def support_member?
     role_name == 'broadcast engineer' or role_name == 'IT engineer'
+  end
+
+  def approver?
+    access_accounts.any?
   end
 end
