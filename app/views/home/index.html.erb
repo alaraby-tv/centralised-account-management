@@ -1,18 +1,49 @@
 <div class="page-header">
   <h2>Welcome to Centralised Account Management</h2>
 </div>
-<p>Select your action :</p>
-<%= link_to new_request_path, class: 'btn btn-primary' do %>
-  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-  New Request
-<% end %>
+<% if current_user.coordinator? %>
+  <p><em><strong>Select your action :</strong></em></p>
+  <%= link_to new_request_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    New Request
+  <% end %>
 
-<%= link_to new_end_user_path, class: 'btn btn-default' do %>
-  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-  Add End User
-<% end %>
+  <%= link_to new_end_user_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    Add End User
+  <% end %>
 
-<%= link_to requests_path, class: 'btn btn-success' do %>
-  <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-  My Requests
+  <%= link_to requests_path, class: 'btn btn-success' do %>
+    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+    My Requests
+  <% end %>
+<% else %>
+  <p><em><strong>Access Requests To Be Actioned <span class="badge"><%= @access_requests.count %></span></strong></em></p>
+  <% if @access_requests.any? %>
+    <table class="table table-condence">
+      <thead>
+        <tr>
+          <th>End User</th>
+          <th>Access Account</th>
+          <th>Requester</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @access_requests.each do |access_request| %>
+          <tr>
+            <td><%= access_request.end_user_name %></td>
+            <td><%= access_request.access_account_name %></td>
+            <td><%= access_request.access_requester_name %></td>
+            <td>
+              <%= link_to [access_request.request, access_request], class: 'btn btn-xs btn-info' do %>
+                <span class="glyphicon glyphicon-info-sign"></span>
+                Show
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 <% end %>
