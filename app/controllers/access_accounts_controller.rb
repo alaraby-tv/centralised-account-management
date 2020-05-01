@@ -1,4 +1,5 @@
 class AccessAccountsController < ApplicationController
+  before_action :authenticate_admin, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_access_account, only: [:show, :edit, :update, :destroy]
 
   # GET /access_accounts

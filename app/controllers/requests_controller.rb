@@ -1,4 +1,5 @@
 class RequestsController < ApplicationController
+  before_action :authenticate_coordinator
   before_action :set_request, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb "Requests", :requests_path
@@ -84,6 +85,11 @@ class RequestsController < ApplicationController
   end
 
   private
+
+    # No coordinator can access requests
+    def authenticate_coordinator
+      redirect_to root_path unless current_user.coordinator?
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_request
       @request = Request.find(params[:id])

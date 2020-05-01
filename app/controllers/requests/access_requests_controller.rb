@@ -52,7 +52,7 @@ class Requests::AccessRequestsController < ApplicationController
 
   def approve
     @access_request.approve current_user, params[:comment]
-    redirect_back fallback_location: root_path, notice: "Access Approved"
+    redirect_to root_path, notice: "Access Approved"
   end
 
   def reject
@@ -60,7 +60,7 @@ class Requests::AccessRequestsController < ApplicationController
       redirect_back fallback_location: root_path, flash: { error: "Please provide a comment" }
     else
       @access_request.reject current_user, params[:comment]
-      redirect_back fallback_location: root_path, notice: "Access Rejected" 
+      redirect_to root_path, notice: "Access Rejected" 
     end
   end
 
@@ -69,13 +69,13 @@ class Requests::AccessRequestsController < ApplicationController
       redirect_back fallback_location: root_path, flash: { error: "Please provide a comment" }
     else
       @access_request.cancel current_user, params[:comment]
-      redirect_back fallback_location: root_path, notice: "Access Cancelled"
+      redirect_to root_path, notice: "Access Cancelled"
     end
   end
 
   def complete
     @access_request.complete current_user
-    redirect_back fallback_location: root_path, notice: "Access Granted"
+    redirect_to root_path, notice: "Access Granted"
   end
 
   # PATCH/PUT /requests/access_requests/1

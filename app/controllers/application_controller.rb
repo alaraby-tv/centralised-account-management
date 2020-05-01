@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:invite, keys: [:first_name, :last_name, :email, :role])
   end
+
+  def authenticate_admin
+    redirect_to root_path, flash: { error: 'You are not permited to perform this action!'} unless current_user.admin?
+  end
 end
