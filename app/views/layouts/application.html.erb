@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Centralised Software Management</title>
+  <title>Centralised Account Management</title>
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -18,39 +18,22 @@
   <%= csrf_meta_tags %>
   <%= favicon_link_tag asset_path('favicon.ico') %>
 </head>
-<body>  
+<body>
+  <%= image_tag "PGI_BG", class: 'background-img' %> 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-3 col-md-2 sidebar">
-        <center><%= image_tag "favicon.ico" %></center>
-        <% if user_signed_in? %>
-          <ul class="nav nav-sidebar">
-            <% AccessAccount.order(:name).each do |access_account| %>
-              <li <% if @access_account == access_account %>class="active"<% end %>>
-                <%= link_to access_account do %>
-                  <span class="glyphicon glyphicon-chevron-right"></span>
-                  <%= access_account.name %>
-                <% end %>
-              </li>
-            <% end %>
-            <li <% if params['controller'] == 'end_users' %>class="active"<% end %>>
-              <%= link_to end_users_path do %>
-                <span class="glyphicon glyphicon-chevron-right"></span>
-                End Users
-              <% end %>
-            </li>
-          </ul>
-        <% end %>
-      </div>
+      <% if user_signed_in? %>
+        <%= render 'partials/sidebar' %>
+      <% end %>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div class="container">
-          <%= render 'partials/navbar' %>
           <% if user_signed_in? %>
-            <ol class="breadcrumb">
-              <%= render_breadcrumbs :tag => :li, :separator => "" %>
-            </ol>
+            <%= render 'partials/navbar' %>
+              <ol class="breadcrumb">
+                <%= render_breadcrumbs :tag => :li, :separator => "" %>
+              </ol>
+            <%= render 'partials/flash' %>
           <% end %>
-          <%= render 'partials/flash' %>
           <%= yield %>
         </div>
       </div>
