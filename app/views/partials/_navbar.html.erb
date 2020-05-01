@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top col-sm-offset-3 col-md-offset-2 shadow" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top col-sm-offset-3 col-md-offset-2 shadow" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -29,6 +29,13 @@
                 <span class="glyphicon glyphicon-stats"></span>
                 Access Accounts
               <% end %>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li>
+              <%= link_to edit_user_registration_path do %>
+                <span class="glyphicon glyphicon-pencil"></span>
+                Change Password
+              <% end %>  
             </li>
             <li role="separator" class="divider"></li>
             <li>
