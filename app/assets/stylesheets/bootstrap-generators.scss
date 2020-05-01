@@ -6,14 +6,19 @@ body {
   padding-top: $navbar-height;
 }
 
-.background_img {
+.background-img {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: auto;
-  opacity: 0.5;
+  opacity: 0.3;
   z-index: -1;
+}
+
+.sign-in-img {
+  margin-top: -50px;
+  width: 65px;
 }
 
 .sidebar img {
@@ -22,12 +27,13 @@ body {
   width: 60%;
 }
 
+
 .container {
   width: auto;
 }
 
-.navbar, .sidebar {
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.1), 0 2px 5px 0 rgba(0,0,0,0.14), 0 2px 5px 0 rgba(0,0,0,0.2);
+.navbar, .sidebar, .breadcrumb, hr {
+  box-shadow: 2px 0px 10px 0 rgba(0,0,0,0.05), 3px 0px 10px 0 rgba(0,0,0,0.05), 10px 0px 15px 0 rgba(0,0,0,0.05);
 }
 
 .sidebar {
@@ -39,7 +45,7 @@ body {
   padding: 20px;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: $body-bg;
+  background-color: #f3f3f3;
   border-right: 1px solid #eee;
 }
 
