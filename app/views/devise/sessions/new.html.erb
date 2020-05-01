@@ -1,26 +1,49 @@
-<div class="panel panel-default devise-bs">
-  <div class="panel-heading">
-    <h4><%= t('.sign_in', default: 'Sign in') %></h4>
-  </div>
-  <div class="panel-body">
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: 'form' }) do |f| %>
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, autocomplete: 'off', class: 'form-control' %>
-      </div>
-      <% if devise_mapping.rememberable? %>
-        <div class="checkbox">
-          <%= f.label :remember_me do %>
-            <%= f.check_box :remember_me %> <%= t('.remember_me', default: 'Remember me') %>
-          <% end %>
+<div class="col-sm-8 col-md-9">
+  <%= image_tag "alaraby_logo.png", class: 'sign-in-img' %>
+  <hr>
+  <div class="panel panel-default devise-bs">
+    <div class="panel-heading">
+      <h4><%= t('.sign_in', default: 'Sign in') %></h4>
+    </div>
+    <div class="panel-body">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: 'form' }) do |f| %>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, class: 'form-control' %>
         </div>
+        <div class="form-group">
+          <%= f.label :password %>
+          <%= f.password_field :password, autocomplete: 'off', class: 'form-control' %>
+        </div>
+        <% if devise_mapping.rememberable? %>
+          <div class="checkbox">
+            <%= f.label :remember_me do %>
+              <%= f.check_box :remember_me %> <%= t('.remember_me', default: 'Remember me') %>
+            <% end %>
+          </div>
+        <% end %>
+        <%= f.submit  t('.sign_in', default: 'Sign in'), class: 'btn btn-primary' %>
       <% end %>
-      <%= f.submit  t('.sign_in', default: 'Sign in'), class: 'btn btn-primary' %>
-    <% end %>
+      <%= render 'devise/shared/links' %>
+    </div>
   </div>
+  
+  <hr>
+  <footer class="footer">
+    <div class="pull-left">
+      <p>
+        <strong>Centralised Account Management v0.1 beta - &copy; Alaraby Television Network Ltd.</strong><br>
+        <small>Developed by Przemyslaw Markowski, April 2020</small>
+      </p>
+      <p>
+        <strong>Help & Support:</strong><br>
+        <small>Duty Broadcast Engineer, mobile +44 (0)7917 077 529 internal call 4001<br>
+        Duty IT Engineer, mobile +44 (0)7917 068 243 internal call 4002<br>
+        Email: <%= mail_to "sdu@alaraby.tv", "Software Development Unit", subject: "Centralised Account Management Application" %></small>
+      </p>
+    </div>
+    <div class="pull-right">
+    </div>
+  </footer>
 </div>
-<%= render 'devise/shared/links' %>
+
