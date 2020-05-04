@@ -8,7 +8,7 @@ body {
 
 body::before {
   content: "";
-  background: url('default_alaraby_bg.jpg');
+  background-image: url('default_alaraby_bg.jpg');
   background-size: 100%;
   background-repeat: no-repeat;
   position: absolute;
