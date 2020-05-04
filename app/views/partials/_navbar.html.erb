@@ -10,9 +10,8 @@
       <%= link_to "Centralised Account Management", root_path, class: "navbar-brand" %> 
     </div>
     <div id="navbar" class="collapse navbar-collapse">
-      <% if user_signed_in? %>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" role="presentation">
           <%= link_to "#", class: "dropdown-toggle", data: { toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" } do %>
             <span class="glyphicon glyphicon-menu-hamburger"></span>
             <%= current_user.name %>
@@ -46,8 +45,7 @@
             </li>
           </ul>
         </li>
-        </ul>
-      <% end %>
+      </ul>
     </div>
   </div>
 </nav>
