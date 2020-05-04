@@ -8,19 +8,7 @@
       <span class="glyphicon glyphicon-check"></span>
       Grant Access
     <% end %>
-  <% elsif @access_request.owner? current_user %>
-    <% if @access_request.ready_to_cancel? %>
-      <%= link_to cancel_request_access_request_path(@request, @access_request), data: { toggle: "modal", target: "#cancelModal", turbolinks: false }, class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-remove"></span>
-        Cancel
-      <% end %>
-    <% end %>
-    <%= link_to edit_request_access_request_path(@request, @access_request), class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-pencil"></span>
-      Edit
-    <% end %>
-  <% end %>
-  <% if @access_request.ready_to_approve? and @access_request.approver? current_user %>
+  <% elsif @access_request.ready_to_approve? and @access_request.approver? current_user %>
     <%= link_to "#", class: 'btn btn-danger', data: { toggle: "modal", target: "#rejectModal", turbolinks: false } do %>
       <span class="glyphicon glyphicon-remove"></span>
       Reject
@@ -28,6 +16,18 @@
     <%= link_to "#", class: 'btn btn-success', data: { toggle: "modal", target: "#approveModal", turbolinks: false } do %>
       <span class="glyphicon glyphicon-ok"></span>
       Approve
+    <% end %>
+  <% end %>
+  <% if current_user.coordinator? %>
+    <%= link_to edit_request_access_request_path(@request, @access_request), class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      Edit
+    <% end %>
+    <% if @access_request.ready_to_cancel? %>
+      <%= link_to cancel_request_access_request_path(@request, @access_request), data: { toggle: "modal", target: "#cancelModal", turbolinks: false }, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-remove"></span>
+        Cancel
+      <% end %>
     <% end %>
   <% end %>
   <h2>Access Request <small><%= content_tag :span, class: "label label-#{label_class @access_request.current_state}" do %><%= @access_request.current_state %><% end %></small></h2>
