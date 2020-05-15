@@ -18,7 +18,7 @@
     My Requests
   <% end %>
 <% else %>
-  <p><em><strong>Access Requests To Be Actioned <span class="badge"><%= @access_requests.count %></span></strong></em></p>
+  <p><em><strong>Access Requests</strong></em></p>
   <% if @access_requests.any? %>
     <table class="table table-condence">
       <thead>
@@ -45,5 +45,40 @@
         <% end %>
       </tbody>
     </table>
+    <%= paginate @access_requests, window: 2 %>
   <% end %>
+  <%= page_entries_info @access_requests, entry_name: 'item' %>
+<% end %>
+<% if current_user.support_member? %>
+<hr>
+  <% if @access_requests_with_no_approval.any? %>
+  <p><em><strong>Access Requests With No Approval Needed</strong></em></p>
+    <table class="table table-condence">
+      <thead>
+        <tr>
+          <th>End User</th>
+          <th>Access Account</th>
+          <th>Requester</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @access_requests_with_no_approval.each do |access_request| %>
+          <tr>
+            <td><%= access_request.end_user_name %></td>
+            <td><%= access_request.access_account_name %></td>
+            <td><%= access_request.access_requester_name %></td>
+            <td>
+              <%= link_to [access_request.request, access_request], class: 'btn btn-xs btn-info' do %>
+                <span class="glyphicon glyphicon-info-sign"></span>
+                Show
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @access_requests_with_no_approval, window: 2 %>
+  <% end %>
+  <%= page_entries_info @access_requests_with_no_approval, entry_name: 'item' %>
 <% end %>

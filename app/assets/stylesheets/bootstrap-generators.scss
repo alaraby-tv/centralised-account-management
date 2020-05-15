@@ -37,8 +37,12 @@ body::before {
   min-height: 100%;
 }
 
-.navbar, .sidebar, .breadcrumb {
+.navbar, .sidebar, .breadcrumb, .pagination {
   box-shadow: 2px 0px 10px 0 rgba(0,0,0,0.05), 3px 0px 10px 0 rgba(0,0,0,0.05), 10px 0px 15px 0 rgba(0,0,0,0.05);
+}
+
+.pagination > li > a {
+  background: #f5f5f5;
 }
 
 .sidebar {

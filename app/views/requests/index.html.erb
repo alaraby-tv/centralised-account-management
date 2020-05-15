@@ -53,4 +53,6 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @requests, window: 2 %>
 </div>
+<%= page_entries_info @requests, entry_name: 'item' %>

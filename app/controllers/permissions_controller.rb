@@ -5,7 +5,7 @@ class PermissionsController < ApplicationController
   # GET /permissions
   # GET /permissions.json
   def index
-    @permissions = Permission.all
+    @permissions = Permission.order(:name).page params[:page]
   end
 
   # GET /permissions/1

@@ -74,7 +74,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @access_request.access_request_events.order(:created_at).each do |event| %>
+      <% @events.order(:created_at).each do |event| %>
         <tr>
           <td>
             <%= content_tag :span, class: "label label-#{label_class event.state}" do %><%= event.state %><% end %>
@@ -86,5 +86,7 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @events, window: 2 %>
 <% end %>
+<%= page_entries_info @events, entry_name: 'item' %>
 

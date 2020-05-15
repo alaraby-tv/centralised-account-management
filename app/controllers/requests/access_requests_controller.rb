@@ -7,13 +7,14 @@ class Requests::AccessRequestsController < ApplicationController
   # GET /requests/access_requests
   # GET /requests/access_requests.json
   def index
-    @access_requests = @request.access_requests
+    @access_requests = @request.access_requests.page params[:page]
     add_breadcrumb "Request No. #{@request.id}", @request
   end
 
   # GET /requests/access_requests/1
   # GET /requests/access_requests/1.json
   def show
+    @events = @access_request.access_request_events.page params[:page]
     add_breadcrumb "Request No. #{@request.id}", @request
     add_breadcrumb "Access Request No. #{@access_request.id}", [@request, @access_request]
   end

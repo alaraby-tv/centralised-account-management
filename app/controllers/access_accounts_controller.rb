@@ -5,14 +5,14 @@ class AccessAccountsController < ApplicationController
   # GET /access_accounts
   # GET /access_accounts.json
   def index
-    @access_accounts = AccessAccount.all
+    @access_accounts = AccessAccount.order(:name).page params[:page]
     add_breadcrumb "Access Accounts", :access_accounts_path
   end
 
   # GET /access_accounts/1
   # GET /access_accounts/1.json
   def show
-    @access_requests = @access_account.access_requests
+    @access_requests = @access_account.access_requests.page params[:page]
     add_breadcrumb "#{@access_account.name}", :access_account_path
   end
 

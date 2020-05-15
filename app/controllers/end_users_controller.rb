@@ -5,13 +5,13 @@ class EndUsersController < ApplicationController
   # GET /end_users
   # GET /end_users.json
   def index
-    @end_users = EndUser.all
+    @end_users = EndUser.all.page params[:page]
   end
 
   # GET /end_users/1
   # GET /end_users/1.json
   def show
-    @access_requests = @end_user.access_requests
+    @access_requests = @end_user.access_requests.page params[:page]
     add_breadcrumb "#{@end_user.name}", @end_user
   end
 

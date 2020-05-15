@@ -35,4 +35,6 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @access_accounts, window: 2 %>
 </div>
+<%= page_entries_info @access_accounts, entry_name: 'item' %>

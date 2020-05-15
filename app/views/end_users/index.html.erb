@@ -33,4 +33,6 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @end_users, window: 2 %>
 </div>
+<%= page_entries_info @end_users %>

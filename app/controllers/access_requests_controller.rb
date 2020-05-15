@@ -4,7 +4,7 @@ class AccessRequestsController < ApplicationController
   # GET /access_requests
   # GET /access_requests.json
   def index
-    @access_requests = AccessRequest.all
+    @access_requests = AccessRequest.all.page params[:page]
   end
 
   # GET /access_requests/1

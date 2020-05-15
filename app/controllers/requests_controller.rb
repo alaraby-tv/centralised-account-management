@@ -7,18 +7,18 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
-    @requests = current_user.requests.order('created_at DESC')
+    @requests = current_user.requests.order('created_at DESC').page params[:page]
     add_breadcrumb "All", :requests_path
   end
 
   def drafts
-    @requests = current_user.requests.order('created_at DESC').where(status: 'draft')
+    @requests = current_user.requests.order('created_at DESC').where(status: 'draft').page params[:page]
     add_breadcrumb "Drafts", :drafts_requests_path
     render 'index'
   end
 
   def submitted
-    @requests = current_user.requests.order('created_at DESC').where(status: 'submitted')
+    @requests = current_user.requests.order('created_at DESC').where(status: 'submitted').page params[:page]
     add_breadcrumb "Submitted", :submitted_requests_path
     render 'index'
   end
@@ -26,6 +26,7 @@ class RequestsController < ApplicationController
   # GET /requests/1
   # GET /requests/1.json
   def show
+    @access_requests = @request.access_requests
     add_breadcrumb "Request No. #{@request.id}"
   end
 
