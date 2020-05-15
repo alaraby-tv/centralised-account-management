@@ -47,7 +47,6 @@
     </table>
     <%= paginate @access_requests, window: 2 %>
   <% end %>
-  <%= page_entries_info @access_requests, entry_name: 'item' %>
 <% end %>
 <% if current_user.support_member? %>
 <hr>
@@ -80,5 +79,4 @@
     </table>
     <%= paginate @access_requests_with_no_approval, window: 2 %>
   <% end %>
-  <%= page_entries_info @access_requests_with_no_approval, entry_name: 'item' %>
 <% end %>
